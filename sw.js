@@ -1,4 +1,4 @@
-const CACHE_NAME = 'seul-2026-v1';
+const CACHE_NAME = 'verano-2026-v2';
 const APP_SHELL = [
   '/',
   '/index.html',

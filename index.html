@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seúl · 25–29 jul 2026</title>
+<title>Verano 2026 · Corea + China</title>
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#221c18">
 <link rel="apple-touch-icon" href="/icons/icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Seúl 2026">
+<meta name="apple-mobile-web-app-title" content="Verano 2026">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
@@ -64,8 +64,8 @@
   }
   h1{
     font-family:'Noto Serif KR',serif;
-    font-size:26px;margin:2px 0 2px;font-weight:700;
-    letter-spacing:0.5px;
+    font-size:24px;margin:2px 0 2px;font-weight:700;
+    letter-spacing:0.3px;
   }
   .sub{font-size:13px;color:var(--text-dim);}
   .sub b{color:var(--text);font-weight:600;}
@@ -130,6 +130,7 @@
     font-weight:700;
   }
   .tab.active .d{opacity:.7;}
+  .tab.leg-first{border-left:2px solid var(--line4);}
 
   .day-panel{display:none;}
   .day-panel.active{display:block;animation:fade .25s ease;}
@@ -137,12 +138,16 @@
 
   .day-head{
     display:flex;justify-content:space-between;align-items:baseline;
-    margin-bottom:4px;flex-wrap:wrap;gap:4px;
+    margin-bottom:2px;flex-wrap:wrap;gap:4px;
   }
   .day-head h2{
     font-family:'Noto Serif KR',serif;font-size:19px;margin:0;font-weight:700;
   }
   .day-head span{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--line4);}
+  .day-sub{
+    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);
+    margin-bottom:8px;
+  }
   .day-progress{
     font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);
     margin-bottom:4px;
@@ -230,7 +235,7 @@
     font-family:'Noto Serif KR',serif;font-size:15px;margin:0 0 4px;
   }
   .chart-box p{font-size:11.5px;color:var(--text-dim);margin:0 0 10px;}
-  canvas{max-height:220px;}
+  canvas{max-height:260px;}
 
   footer{
     margin-top:16px;font-size:11px;color:var(--text-dim);
@@ -242,9 +247,9 @@
 <div class="wrap">
 
   <header class="top">
-    <span class="eyebrow">Itinerario · Ruta Seúl</span>
-    <h1>25 – 29 julio 2026</h1>
-    <div class="sub">🏨 <b>OYO Hostel Myeongdong 3</b> · Myeongdong · base en Línea 4 (teal)</div>
+    <span class="eyebrow">Itinerario · Corea + China</span>
+    <h1>24 jul – 16 ago 2026</h1>
+    <div class="sub">Seúl → Gyeongju → Busan → Jeonju → Seúl → Fuzhou → Kunming → Dali → Lijiang → Shangri-La → Chengdu</div>
   </header>
 
   <div class="progress-overall">
@@ -255,28 +260,20 @@
 
   <div class="kpi-row">
     <div class="kpi">
-      <div class="k-label">Estancia</div>
-      <div class="k-value">4 noches</div>
-    </div>
-    <div class="kpi">
-      <div class="k-label">Clima previsto</div>
-      <div class="k-value" id="kpiWeather">27–29°C · lluvia probable <span style="opacity:.6;font-weight:400;">(estimación)</span></div>
-    </div>
-    <div class="kpi warn">
-      <div class="k-label">⚠ Festival</div>
-      <div class="k-value">WATERBOMB · 24–26 jul</div>
-    </div>
-    <div class="kpi warn">
-      <div class="k-label">Cierres palacios</div>
-      <div class="k-value">Gyeongbokgung: mar · Changdeok: lun</div>
-    </div>
-    <div class="kpi photo">
-      <div class="k-label">📷 Luz dorada</div>
-      <div class="k-value">~18:40–19:45 tarde · ~05:30–06:30 mañana</div>
+      <div class="k-label">Duración</div>
+      <div class="k-value">24 días</div>
     </div>
     <div class="kpi">
       <div class="k-label">💰 Presupuesto est.</div>
       <div class="k-value" id="kpiBudgetTotal">—</div>
+    </div>
+    <div class="kpi warn">
+      <div class="k-label">⚠ Visado</div>
+      <div class="k-value">Posible exención por ser &lt;15 días — revisar antes de volar (nota de tu hoja)</div>
+    </div>
+    <div class="kpi warn">
+      <div class="k-label">Cierres palacios (Seúl)</div>
+      <div class="k-value">Gyeongbokgung: mar · Changdeokgung: lun</div>
     </div>
   </div>
 
@@ -288,74 +285,282 @@
   <div id="panels"></div>
 
   <div class="chart-box">
-    <h3>Tiempo aprox. desde el hotel</h3>
-    <p>Minutos estimados en metro/a pie desde Myeongdong — orientativo, confirma con Naver Map / KakaoMap el mismo día.</p>
+    <h3>Reparto del presupuesto estimado</h3>
+    <p>Coste aproximado por persona (€) por tramo del viaje — solo importes con origen confirmado en tu hoja (alojamiento, transporte y entradas ya asignadas a un día concreto).</p>
     <canvas id="distChart"></canvas>
   </div>
 
   <footer>
-    Estimaciones de tiempo, clima y luz solar orientativas a fecha de esta consulta (11 jul 2026).<br>
-    Fuentes: blogs de viaje sobre Seúl, previsiones climáticas, calculadoras de sol y webs oficiales de palacios/N Seoul Tower.<br>
-    Presupuesto por bloque: coste aproximado por persona (entradas + comida estimada), no incluye alojamiento ni vuelos · cambio usado: 1€ ≈ 1.550₩ (orientativo).<br>
+    Contrastado con tu hoja "Verano '26" de Drive (última revisión consultada: 07/07/2026).<br>
+    Presupuesto: solo se suman importes con fuente clara en tu hoja (alojamiento, transporte, entradas ya fechadas). Las actividades de China sin día asignado en tu hoja aparecen con precio de referencia en la descripción pero no se cuentan en el acumulado.<br>
+    Cambio orientativo usado: 1€ ≈ 1.550 KRW · 1€ ≈ 8,1 CNY (revísalos antes del viaje).<br>
+    En China, Google Maps y otros servicios de Google pueden no funcionar sin VPN — lleva Baidu Maps u otra alternativa offline de respaldo.<br>
     El progreso marcado se sincroniza entre dispositivos que abran el mismo enlace con token.
   </footer>
 </div>
 
 <script>
+// Zonas horarias por leg (offset UTC en horas, sin horario de verano salvo España)
+const TZ = { spain:2, korea:9, china:8 };
+const KOREA_LEGS = ['seoul','gyeongju','busan','jeonju','seoul2'];
+const CHINA_LEGS = ['fuzhou','kunming','dali','lijiang','shangrila','chengdu'];
+
+const LEG_LABEL = {
+  transit:'Viaje ida', seoul:'Seúl', gyeongju:'Gyeongju', busan:'Busan', jeonju:'Jeonju',
+  seoul2:'Seúl (vuelta)', fuzhou:'Fuzhou', kunming:'Kunming', dali:'Dali', lijiang:'Lijiang',
+  shangrila:'Shangri-La', chengdu:'Chengdu', return:'Vuelta a casa'
+};
+
+// Coordenadas para el clima real (Open-Meteo) por leg
+const LEG_COORDS = {
+  seoul:{lat:37.5665, lon:126.9780}, seoul2:{lat:37.5665, lon:126.9780},
+  gyeongju:{lat:35.8562, lon:129.2247}, busan:{lat:35.1796, lon:129.0756},
+  jeonju:{lat:35.8242, lon:127.1480}, fuzhou:{lat:26.0745, lon:119.2965},
+  kunming:{lat:25.0389, lon:102.7183}, dali:{lat:25.6065, lon:100.2676},
+  lijiang:{lat:26.8721, lon:100.2240}, shangrila:{lat:27.8264, lon:99.7031},
+  chengdu:{lat:30.5728, lon:104.0668}
+};
+
+function legTz(leg){
+  if(KOREA_LEGS.includes(leg)) return TZ.korea;
+  if(CHINA_LEGS.includes(leg)) return TZ.china;
+  return TZ.spain;
+}
+
 const DAYS = [
   {
-    id: 0, label:"Día 1", date:"Sáb 25", title:"Llegada · Myeongdong",
-    note:"Llegada 18:00 a ICN. Con el vuelo largo encima, plan sin ambición: la noche la tenéis literalmente en la puerta del hostel.",
-    noteAlert:false,
-    planB:"Si diluvia nada más llegar: centro comercial subterráneo Myeongdong Underground Shopping Center, todo cubierto y a un paso del hotel.",
+    id:0, dateISO:"2026-07-24", dow:"Vie", leg:"transit", hotel:null,
+    title:"Vuelo de ida: Bilbao → Barcelona → Seúl",
+    note:"Doble vuelo el mismo día: doméstico Bilbao→Barcelona y luego intercontinental a Seúl, aterrizando ya el 25 de julio por la tarde (16:25h hora local).",
+    noteAlert:false, planB:"",
     blocks:[
-      {time:"19:00–20:00", place:"Traslado ICN → Myeongdong", desc:"AREX o taxi hasta el hotel. Check-in en OYO Hostel Myeongdong 3.", info:"AREX directo ~9.500₩ · taxi ~55.000–65.000₩", cost:9500, badges:[{t:"LÍNEA 4",c:"line4"},{t:"~55 min",cls:"time-est"}], map:"AREX Incheon Airport Seoul"},
-      {time:"20:30–22:30", place:"Myeongdong Night Market", desc:"Street food a pie del hotel: tteokbokki, tornado potato, brochetas. Cero logística, cero metro.", info:"Entrada libre · pagas por puesto", cost:15000, badges:[{t:"0 min · a pie",cls:"time-est"}], map:"Myeongdong Night Market Seoul"}
+      {time:"15:30–16:20", place:"Vuelo BIO → BCN", desc:"Vuelo doméstico de enlace.", info:"82€ (según tu hoja)", cost:82, badges:[{t:"✈️ Vuelo",cls:"time-est"}], map:"Aeropuerto de Bilbao", startISO:"2026-07-24T15:30", endISO:"2026-07-24T16:20", startTz:TZ.spain, endTz:TZ.spain},
+      {time:"21:00–16:25 (+1 día)", place:"Vuelo BCN → ICN", desc:"Vuelo intercontinental a Seúl-Incheon, llegada al día siguiente.", info:"662€ (según tu hoja)", cost:662, badges:[{t:"✈️ Vuelo",cls:"time-est"}], map:"Aeropuerto de Barcelona El Prat", startISO:"2026-07-24T21:00", endISO:"2026-07-25T16:25", startTz:TZ.spain, endTz:TZ.korea}
     ]
   },
   {
-    id:1, label:"Día 2", date:"Dom 26", title:"Seúl histórico",
-    note:"Gyeongbokgung y Changdeokgung abiertos hoy (domingo) sin restricción de cierre semanal.",
-    noteAlert:false,
-    planB:"Si el chaparrón es fuerte: Museo Nacional de Corea o el Museo Popular Nacional (dentro del recinto de Gyeongbokgung), ambos cubiertos. Ikseon-dong e Insadong tienen muchos cafés donde refugiarse entre tramos.",
+    id:1, dateISO:"2026-07-25", dow:"Sáb", leg:"seoul", hotel:"OYO Hostel Myeongdong 3",
+    title:"Llegada a Seúl",
+    note:"Aterrizaje 16:25h hora local. Rellena la Arrival Card antes de llegar (nota de tu hoja). El festival WATERBOMB (24–26 jul) puede notarse en ambiente/ruido por Seúl estos días, sin afectar al plan.",
+    noteAlert:false, planB:"Myeongdong Underground Shopping Center si diluvia nada más llegar.",
     blocks:[
-      {time:"09:00–11:30", place:"Gyeongbokgung Palace", desc:"Entra pronto para evitar el grueso de los grupos. Cambio de guardia a las 10:00. Entrada gratis si vais de hanbok.", info:"₩3.000 adulto · 09:00–18:30 (jun–ago) · cierra martes", cost:3000, badges:[{t:"LÍNEA 3",c:"line3"},{t:"~20 min",cls:"time-est"}], map:"Gyeongbokgung Palace Seoul"},
-      {time:"11:30–12:30", place:"Bukchon Hanok Village", desc:"A pie desde el palacio. Callejones de hanoks, miradores sobre tejados — buen material para cámara analógica.", info:"Entrada libre", cost:0, badges:[{t:"a pie desde palacio",cls:"time-est"}], map:"Bukchon Hanok Village Seoul"},
-      {time:"12:30–14:00", place:"Ikseon-dong", desc:"Comida y cafés entre hanoks reconvertidos.", info:"Entrada libre", cost:15000, badges:[{t:"a pie",cls:"time-est"}], map:"Ikseondong Seoul"},
-      {time:"14:30–17:00", place:"Changdeokgung + Insadong", desc:"Opcional si queda energía: Jardín Secreto (reserva aparte, entrada limitada) y calle de té/anticuarios de Insadong.", info:"Palacio ₩3.000 · 09:00–18:30 · cierra lunes · Jardín Secreto ~₩5.000-8.000 aparte, reserva obligatoria", cost:3000, badges:[{t:"a pie",cls:"time-est"}], map:"Changdeokgung Palace Seoul"},
-      {time:"19:00–21:30", place:"Gwangjang Market", desc:"Cena de mercado — algunos puestos cierran sobre las 22:00, no dejéis esto para muy tarde.", info:"Entrada libre · pagas por plato", cost:20000, badges:[{t:"LÍNEA 1",c:"line1"},{t:"~20 min",cls:"time-est"}], map:"Gwangjang Market Seoul"}
+      {time:"16:25–18:00", place:"Llegada ICN + traslado a Myeongdong", desc:"AREX «Express Train» desde el aeropuerto. Check-in en OYO Hostel Myeongdong 3.", info:"AREX ~7€ (según tu hoja)", cost:7, badges:[{t:"AREX",cls:"time-est"}], map:"AREX Incheon Airport Seoul"},
+      {time:"Tarde/noche", place:"Paseo por Myeongdong o Cheonggyecheon", desc:"Sin planes grandes tras el vuelo largo: opción a pie del hotel.", info:"Entrada libre", cost:0, badges:[{t:"a pie",cls:"time-est"}], map:"Myeongdong Seoul"}
     ]
   },
   {
-    id:2, label:"Día 3", date:"Lun 27", title:"Myeongdong · Namsan · DDP",
-    note:"Día casi entero sin salir de vuestra zona — el hotel os pone en el centro del tablero hoy.",
-    noteAlert:false,
-    planB:"Con lluvia fuerte: el observatorio de N Seoul Tower sigue siendo indoor, pero el cable car puede pausarse con viento/tormenta — llevad plan de subir a pie o en bus si lo cierran. Alternativa completa: Lotte Young Plaza / galerías subterráneas de Myeongdong.",
+    id:2, dateISO:"2026-07-26", dow:"Dom", leg:"seoul", hotel:"OYO Hostel Myeongdong 3",
+    title:"Changdeokgung + Ikseon-dong + Gwangjang Market",
+    note:"Reordenado respecto a tu hoja: tenías Changdeokgung el lunes 27, pero cierra los lunes. Lo movemos al domingo e intercambiamos con Gyeongbokgung (que cierra los martes, así que el lunes le viene bien).",
+    noteAlert:true, planB:"Museo Nacional de Corea o Museo Popular Nacional si llueve fuerte.",
     blocks:[
-      {time:"10:00–13:00", place:"Myeongdong (con calma)", desc:"Skincare, cafés, calles sin la prisa del día de llegada.", info:"Entrada libre", cost:10000, badges:[{t:"0 min",cls:"time-est"}], map:"Myeongdong Seoul"},
-      {time:"17:30–19:30", place:"N Seoul Tower (Namsan)", desc:"Subida en cable car o a pie. Entrar antes del atardecer para ver caer la luz sobre la ciudad.", info:"Observatorio ~₩16.000 · cable car ida-vuelta ~₩14.000 · 10:00–23:00 (sujeto a clima)", cost:30000, badges:[{t:"LÍNEA 4 + cable car",c:"line4"},{t:"~15 min",cls:"time-est"},{t:"📷 luz dorada",cls:"golden"}], map:"N Seoul Tower Namsan"},
-      {time:"20:00–22:00", place:"DDP + cena Dongdaemun", desc:"Dongdaemun Design Plaza iluminado de noche. Cena de dakhanmari en el callejón cercano.", info:"Entrada libre (exposiciones aparte)", cost:25000, badges:[{t:"LÍNEA 4",c:"line4"},{t:"~10 min",cls:"time-est"}], map:"Dongdaemun Design Plaza Seoul"}
+      {time:"Mañana", place:"Changdeokgung + Secret Garden", desc:"Jardín Secreto con aforo limitado, reserva aparte.", info:"Palacio ~3.000 KRW (~2€) · Jardín Secreto reserva obligatoria", cost:2, badges:[{t:"LÍNEA 3",c:"line3"}], map:"Changdeokgung Palace Seoul"},
+      {time:"Mediodía", place:"Ikseon-dong", desc:"Comida y cafés entre hanoks reconvertidos.", info:"Entrada libre", cost:0, badges:[{t:"a pie",cls:"time-est"}], map:"Ikseondong Seoul"},
+      {time:"Noche", place:"Gwangjang Market", desc:"Cena de mercado.", info:"Entrada libre · pagas por plato", cost:0, badges:[{t:"LÍNEA 1",c:"line1"}], map:"Gwangjang Market Seoul"}
     ]
   },
   {
-    id:3, label:"Día 4", date:"Mar 28", title:"Barrios auténticos + río",
-    note:"Gyeongbokgung cierra hoy (martes) — no pasa nada, no está en el plan de hoy. Puede coincidir con el Hangang Summer Festival en el río.",
-    noteAlert:true,
-    planB:"Si llueve para el cierre en el río: cambiadlo por una tarde-noche de cafés cubiertos en Seongsu (Daelim Warehouse y similares) o un centro comercial en Seongsu/Gangnam. Guardad el Han River para otra tarde si el pronóstico mejora.",
+    id:3, dateISO:"2026-07-27", dow:"Lun", leg:"seoul", hotel:"OYO Hostel Myeongdong 3",
+    title:"Gyeongbokgung + Bukchon + Insadong",
+    note:"Movido desde el domingo (ver nota del día anterior) — Gyeongbokgung cierra los martes, el lunes es seguro.",
+    noteAlert:false, planB:"",
     blocks:[
-      {time:"10:00–13:00", place:"Seongsu-dong", desc:"Cafés de diseño y naves industriales reconvertidas — el barrio más fotogénico del viaje.", info:"Entrada libre", cost:10000, badges:[{t:"LÍNEA 2",c:"line2"},{t:"~25 min",cls:"time-est"}], map:"Seongsu-dong Seoul"},
-      {time:"14:00–17:00", place:"Hongdae / Itaewon", desc:"Energía joven y arte callejero (Hongdae) o ambiente internacional más relajado (Itaewon) — elegid según el cuerpo.", info:"Entrada libre", cost:15000, badges:[{t:"LÍNEA 2 / 6",c:"line6"},{t:"~30 min",cls:"time-est"}], map:"Hongdae Seoul"},
-      {time:"19:00–21:30", place:"Han River (Banpo/Yeouido)", desc:"Cierre del viaje junto al río. Si coincide el Hangang Summer Festival: cine al aire libre y música en vivo.", info:"Entrada libre", cost:10000, badges:[{t:"metro + bus",cls:"time-est"},{t:"~25 min",cls:"time-est"},{t:"📷 luz dorada",cls:"golden"}], map:"Banpo Hangang Park Seoul"}
+      {time:"Mañana", place:"Gyeongbokgung Palace", desc:"Cambio de guardia a las 10:00. Entrada gratis si vais de hanbok.", info:"3.000 KRW adulto (~2€) · cierra martes", cost:2, badges:[{t:"LÍNEA 3",c:"line3"}], map:"Gyeongbokgung Palace Seoul"},
+      {time:"Mediodía", place:"Bukchon Hanok Village", desc:"A pie desde el palacio.", info:"Entrada libre", cost:0, badges:[{t:"a pie",cls:"time-est"}], map:"Bukchon Hanok Village Seoul"},
+      {time:"Tarde", place:"Insadong", desc:"Calle de té y anticuarios.", info:"Entrada libre", cost:0, badges:[{t:"a pie",cls:"time-est"}], map:"Insadong Seoul"}
     ]
   },
   {
-    id:4, label:"Día 5", date:"Mié 29", title:"Salida",
-    note:"Check-out y traslado hacia el siguiente destino. Si queda alguna hora libre, todo está a pie del hotel.",
-    noteAlert:false,
-    planB:"",
+    id:4, dateISO:"2026-07-28", dow:"Mar", leg:"seoul", hotel:"OYO Hostel Myeongdong 3",
+    title:"Hongdae + Itaewon + Namsan Tower",
+    note:"", noteAlert:false, planB:"",
     blocks:[
-      {time:"Mañana", place:"Últimas horas en Myeongdong", desc:"Myeongdong Cathedral o compras de última hora, sin desplazamientos.", info:"Entrada libre", cost:10000, badges:[{t:"0 min",cls:"time-est"}], map:"Myeongdong Cathedral Seoul"},
-      {time:"—", place:"Traslado de salida", desc:"Rumbo a próximo destino / ICN.", info:"", cost:9500, badges:[{t:"LÍNEA 4",c:"line4"}], map:"Incheon International Airport"}
+      {time:"Tarde", place:"Hongdae / Itaewon", desc:"Energía joven (Hongdae) o ambiente internacional (Itaewon), según el cuerpo.", info:"Entrada libre", cost:0, badges:[{t:"LÍNEA 2/6",c:"line2"}], map:"Hongdae Seoul"},
+      {time:"Atardecer", place:"N Seoul Tower (Namsan)", desc:"Subida en cable car o a pie.", info:"26.000 KRW (~17€, según tu hoja)", cost:17, badges:[{t:"📷 luz dorada",cls:"golden"}], map:"N Seoul Tower Namsan"}
+    ]
+  },
+  {
+    id:5, dateISO:"2026-07-29", dow:"Mié", leg:"gyeongju", hotel:"Gyeongju BonghwangMansion",
+    title:"Tren a Gyeongju + Hanok Village",
+    note:"", noteAlert:false, planB:"",
+    blocks:[
+      {time:"10:00–12:00", place:"Tren Seúl → Gyeongju", desc:"KTX.", info:"55€ (según tu hoja)", cost:55, badges:[{t:"KTX",cls:"time-est"}], map:"Gyeongju Station", startISO:"2026-07-29T10:00", endISO:"2026-07-29T12:00", startTz:TZ.korea, endTz:TZ.korea},
+      {time:"Tarde", place:"Check-in + paseo por Hanok Village (Gyeongju)", desc:"", info:"Alojamiento 2 noches: 137€ (según tu hoja)", cost:137, badges:[{t:"a pie",cls:"time-est"}], map:"Gyeongju Hanok Village"}
+    ]
+  },
+  {
+    id:6, dateISO:"2026-07-30", dow:"Jue", leg:"gyeongju", hotel:"Gyeongju BonghwangMansion",
+    title:"Bulguksa + Seokguram + Anapji (Wolji Pond)",
+    note:"Reasignado: tu hoja tenía aquí 'Gyeonggijeon Shrine, Omokdae', que en realidad están en Jeonju (así los agrupa tu propia sección de Tickets y entradas). Los movemos al día de Jeonju y ponemos aquí los 3 imprescindibles reales de Gyeongju.",
+    noteAlert:true, planB:"",
+    blocks:[
+      {time:"Mañana", place:"Bulguksa Temple", desc:"", info:"Gratis (según tu hoja)", cost:0, badges:[{t:"Día completo",cls:"time-est"}], map:"Bulguksa Temple Gyeongju"},
+      {time:"Mediodía", place:"Seokguram Grotto", desc:"Cómoda de recorrer en bici, según tu hoja.", info:"6.000 KRW (~4€, según tu hoja)", cost:4, badges:[{t:"bici",cls:"time-est"}], map:"Seokguram Grotto"},
+      {time:"Tarde/noche", place:"Donggung Palace y Wolji Pond (Anapji)", desc:"Espectacular iluminado de noche, según tu hoja.", info:"3.000 KRW (~2€, según tu hoja)", cost:2, badges:[{t:"📷 de noche",cls:"golden"}], map:"Donggung Palace Wolji Pond"}
+    ]
+  },
+  {
+    id:7, dateISO:"2026-07-31", dow:"Vie", leg:"busan", hotel:"Gem Stay Seomyeon",
+    title:"Tren a Busan",
+    note:"", noteAlert:false, planB:"",
+    blocks:[
+      {time:"14:00–15:00", place:"Tren Gyeongju → Busan", desc:"KTX (35').", info:"18€ (según tu hoja)", cost:18, badges:[{t:"KTX",cls:"time-est"}], map:"Busan Station", startISO:"2026-07-31T14:00", endISO:"2026-07-31T15:00", startTz:TZ.korea, endTz:TZ.korea},
+      {time:"Tarde", place:"Check-in + paseo por el centro histórico", desc:"", info:"Alojamiento 3 noches: 247€ (según tu hoja)", cost:247, map:"Busan"}
+    ]
+  },
+  {
+    id:8, dateISO:"2026-08-01", dow:"Sáb", leg:"busan", hotel:"Gem Stay Seomyeon",
+    title:"Haedong Yonggungsa + Haeundae Beach",
+    note:"Reasignado: tu hoja tenía aquí 'Bulguksa, Seokguram, Anapji' (son de Gyeongju, ver día 30-07). Aquí van 2 actividades reales de Busan de tu propia lista de tickets.",
+    noteAlert:true, planB:"",
+    blocks:[
+      {time:"Mañana", place:"Haedong Yonggungsa Temple", desc:"Templo junto al mar; ideal para comer marisco cerca, según tu hoja.", info:"Gratis, excepto transporte (según tu hoja)", cost:0, map:"Haedong Yonggungsa Temple Busan"},
+      {time:"Tarde", place:"Haeundae Beach", desc:"El amanecer aquí merece la pena, según tu hoja (a valorar madrugar otro día).", info:"Gratis, excepto transporte (según tu hoja)", cost:0, badges:[{t:"📷 amanecer",cls:"golden"}], map:"Haeundae Beach Busan"}
+    ]
+  },
+  {
+    id:9, dateISO:"2026-08-02", dow:"Dom", leg:"busan", hotel:"Gem Stay Seomyeon",
+    title:"Gamcheon Village + Jagalchi Market",
+    note:"Estas dos ya estaban bien asignadas a Busan en tu hoja. Añadimos aquí, como opcional, Taejongdae/Geoje Island (tu hoja los ponía en el día de vuelta a Seúl, pero son excursiones desde Busan).",
+    noteAlert:false, planB:"",
+    blocks:[
+      {time:"Mañana", place:"Gamcheon Culture Village", desc:"Ciudad muy extensa, según tu hoja.", info:"Gratis, excepto transporte (según tu hoja)", cost:0, map:"Gamcheon Culture Village Busan"},
+      {time:"Tarde", place:"Jagalchi Market", desc:"", info:"Gratis, excepto transporte (según tu hoja)", cost:0, map:"Jagalchi Market Busan"},
+      {time:"Si sobra tiempo (opcional)", place:"Taejongdae cliffs o excursión a Geoje Island", desc:"Reasignado aquí desde el día de Seúl-vuelta: son excursiones desde Busan.", info:"Sin coste anotado en tu hoja", cost:0, map:"Taejongdae Busan"}
+    ]
+  },
+  {
+    id:10, dateISO:"2026-08-03", dow:"Lun", leg:"jeonju", hotel:"Jeonju Hanok village Deoksugung",
+    title:"Tren a Jeonju + Hanok Village",
+    note:"Reasignado: tu hoja ponía aquí 'Haedong Yonggungsa, Haeundae Beach' (son de Busan, ver 01-08). Aquí van las actividades reales de Jeonju.",
+    noteAlert:true, planB:"",
+    blocks:[
+      {time:"08:00–12:00", place:"Tren Busan → Jeonju", desc:"KTX + transbordo.", info:"58€ (según tu hoja)", cost:58, badges:[{t:"KTX",cls:"time-est"}], map:"Jeonju Station", startISO:"2026-08-03T08:00", endISO:"2026-08-03T12:00", startTz:TZ.korea, endTz:TZ.korea},
+      {time:"Tarde", place:"Jeonju Hanok Village", desc:"Cuna del bibimbap, según tu hoja. Merece la pena alquilar un hanbok.", info:"Alojamiento 1 noche: 37€ (según tu hoja)", cost:37, map:"Jeonju Hanok Village"},
+      {time:"Tarde", place:"Gyeonggijeon Shrine + Omokdae", desc:"", info:"Gyeonggijeon 3.000 KRW (~2€, según tu hoja)", cost:2, map:"Gyeonggijeon Shrine Jeonju"},
+      {time:"Cuando puedas", place:"Mercado Nambu", desc:"", info:"Sin coste anotado", cost:0, map:"Nambu Market Jeonju"}
+    ]
+  },
+  {
+    id:11, dateISO:"2026-08-04", dow:"Mar", leg:"seoul2", hotel:"OMG house (Hongdae)",
+    title:"Tren a Seúl (medio día libre)",
+    note:"Tu hoja ponía aquí 'Taejongdae cliffs / Geoje Island' — son excursiones desde Busan, las movimos al 02-08. Este medio día queda sin plan concreto, pendiente de definir.",
+    noteAlert:true, planB:"",
+    blocks:[
+      {time:"11:30–13:30", place:"Tren Jeonju → Seúl", desc:"", info:"39€ — tu hoja lo etiqueta 'Busan→Seúl' en la sección de transporte, probablemente el mismo trayecto con origen distinto anotado", cost:39, badges:[{t:"KTX",cls:"time-est"}], map:"Seoul Station", startISO:"2026-08-04T11:30", endISO:"2026-08-04T13:30", startTz:TZ.korea, endTz:TZ.korea},
+      {time:"Tarde", place:"Check-in OMG House (Hongdae)", desc:"Medio día libre en Seúl — plan por definir.", info:"Alojamiento 1 noche: 66€ (según tu hoja)", cost:66, map:"Hongdae Seoul"}
+    ]
+  },
+  {
+    id:12, dateISO:"2026-08-05", dow:"Mié", leg:"fuzhou", hotel:"Hotel Capsula Airport",
+    title:"Vuelo a Fuzhou",
+    note:"", noteAlert:false, planB:"",
+    blocks:[
+      {time:"20:35–22:25", place:"Vuelo ICN → Fuzhou (FOC)", desc:"Primer tramo de la conexión hasta Kunming (coste combinado con el vuelo del día siguiente).", info:"194€ combinado ICN–Kunming (según tu hoja)", cost:194, badges:[{t:"✈️ Vuelo",cls:"time-est"}], map:"Fuzhou Changle International Airport", startISO:"2026-08-05T20:35", endISO:"2026-08-05T22:25", startTz:TZ.korea, endTz:TZ.china},
+      {time:"Noche", place:"Hotel cápsula del aeropuerto", desc:"Noche corta antes del vuelo de conexión.", info:"Sin coste de alojamiento listado en tu hoja para esta noche", cost:0, map:"Fuzhou Changle International Airport"}
+    ]
+  },
+  {
+    id:13, dateISO:"2026-08-06", dow:"Jue", leg:"kunming", hotel:"City Comfort Inn Express Hotel",
+    title:"Vuelo a Kunming (medio día libre)",
+    note:"Tu hoja no anota actividades concretas para este día (columna en blanco). Las sugerencias de abajo vienen de tu lista de tickets, sin día asignado — su coste no se incluye en el acumulado.",
+    noteAlert:true, planB:"",
+    blocks:[
+      {time:"07:45–10:55", place:"Vuelo Fuzhou → Kunming", desc:"Segundo tramo de la conexión iniciada el día anterior.", info:"Incluido en el coste del vuelo anterior", cost:0, badges:[{t:"✈️ Vuelo",cls:"time-est"}], map:"Kunming Changshui International Airport", startISO:"2026-08-06T07:45", endISO:"2026-08-06T10:55", startTz:TZ.china, endTz:TZ.china},
+      {time:"Sin horario fijo", place:"Kunming — sugerencias sin día fijado: Stone Forest, Green Lake Park, Yuantong Temple", desc:"Clima muy agradable todo el año, según tu hoja.", info:"Alojamiento 1 noche: 42€ (según tu hoja) · Stone Forest ~130 CNY (~16€, no incluido en el acumulado)", cost:42, map:"Kunming"}
+    ]
+  },
+  {
+    id:14, dateISO:"2026-08-07", dow:"Vie", leg:"dali", hotel:"Weishi · Air Qieman Xiangmo Homestay",
+    title:"Tren a Dali",
+    note:"", noteAlert:false, planB:"",
+    blocks:[
+      {time:"11:00–13:16", place:"Tren Kunming → Dali", desc:"", info:"21€ (según tu hoja)", cost:21, badges:[{t:"Tren AV",cls:"time-est"}], map:"Dali Railway Station", startISO:"2026-08-07T11:00", endISO:"2026-08-07T13:16", startTz:TZ.china, endTz:TZ.china},
+      {time:"Tarde", place:"Ciudad Antigua de Dali", desc:"Mucho sol por la altitud, según tu hoja.", info:"Alojamiento 2 noches: 83€ (según tu hoja)", cost:83, map:"Dali Ancient City"}
+    ]
+  },
+  {
+    id:15, dateISO:"2026-08-08", dow:"Sáb", leg:"dali", hotel:"Weishi · Air Qieman Xiangmo Homestay",
+    title:"Dali — sin día fijado: Erhai Lake + Three Pagodas",
+    note:"Tu hoja no reparte actividades por día en Dali. Las 2 de abajo vienen de tu lista de tickets, sin coste incluido en el acumulado.",
+    noteAlert:true, planB:"",
+    blocks:[
+      {time:"Sin horario fijo", place:"Erhai Lake", desc:"Alquila bici o scooter para recorrerlo, según tu hoja.", info:"Bici/moto 30–80 CNY (~4–10€, no incluido en el acumulado)", cost:0, map:"Erhai Lake"},
+      {time:"Sin horario fijo", place:"Three Pagodas", desc:"", info:"75 CNY (~9€, no incluido en el acumulado)", cost:0, map:"Three Pagodas Dali"}
+    ]
+  },
+  {
+    id:16, dateISO:"2026-08-09", dow:"Dom", leg:"lijiang", hotel:"Mulanyu Tangsu Hotel",
+    title:"Tren a Lijiang",
+    note:"", noteAlert:false, planB:"",
+    blocks:[
+      {time:"10:00–12:00", place:"Tren Dali → Lijiang", desc:"", info:"12€ (según tu hoja)", cost:12, badges:[{t:"Tren AV",cls:"time-est"}], map:"Lijiang Railway Station", startISO:"2026-08-09T10:00", endISO:"2026-08-09T12:00", startTz:TZ.china, endTz:TZ.china},
+      {time:"Tarde", place:"Old Town of Lijiang", desc:"Reservar teleféricos con antelación, según tu hoja.", info:"Tasa 50 CNY (~6€, no incluido en el acumulado) · alojamiento 2 noches: 67€ (según tu hoja)", cost:67, map:"Old Town of Lijiang"}
+    ]
+  },
+  {
+    id:17, dateISO:"2026-08-10", dow:"Lun", leg:"lijiang", hotel:"Mulanyu Tangsu Hotel",
+    title:"Lijiang — sin día fijado: Blue Moon Valley + Jade Dragon Snow Mountain",
+    note:"Tu hoja no reparte actividades por día en Lijiang. Las 2 de abajo vienen de tu lista de tickets, sin coste incluido en el acumulado.",
+    noteAlert:true, planB:"",
+    blocks:[
+      {time:"Sin horario fijo", place:"Blue Moon Valley", desc:"2.000–4.500 m de altitud, según tu hoja.", info:"Sin coste anotado", cost:0, map:"Blue Moon Valley Lijiang"},
+      {time:"Sin horario fijo", place:"Jade Dragon Snow Mountain", desc:"Llevar abrigo incluso en verano, según tu hoja.", info:"Jade + teleféricos 200–350 CNY (~25–43€, no incluido en el acumulado)", cost:0, map:"Jade Dragon Snow Mountain"}
+    ]
+  },
+  {
+    id:18, dateISO:"2026-08-11", dow:"Mar", leg:"shangrila", hotel:"GUI CHEN QI SHE Homestay",
+    title:"Lijiang → Shangri-La (vía Garganta del Salto del Tigre)",
+    note:"", noteAlert:false, planB:"",
+    blocks:[
+      {time:"17:52–19:41", place:"Traslado Lijiang → Shangri-La", desc:"Con parada en la Garganta del Salto del Tigre (Tiger Leaping Gorge), según tu hoja.", info:"10€ (según tu hoja)", cost:10, badges:[{t:"Tren AV",cls:"time-est"}], map:"Tiger Leaping Gorge", startISO:"2026-08-11T17:52", endISO:"2026-08-11T19:41", startTz:TZ.china, endTz:TZ.china},
+      {time:"Noche", place:"Check-in en Shangri-La", desc:"", info:"Alojamiento 3 noches: 162€ (según tu hoja)", cost:162, map:"Shangri-La Yunnan"}
+    ]
+  },
+  {
+    id:19, dateISO:"2026-08-12", dow:"Mié", leg:"shangrila", hotel:"GUI CHEN QI SHE Homestay",
+    title:"Tiger Leaping Gorge",
+    note:"Tu hoja menciona la Garganta del Salto del Tigre tanto en el traslado del día anterior como en este día — puede ser la misma visita anotada dos veces; revísalo tú antes de reservar nada extra.",
+    noteAlert:true, planB:"",
+    blocks:[
+      {time:"Día completo", place:"Tiger Leaping Gorge", desc:"", info:"Sin coste anotado", cost:0, map:"Tiger Leaping Gorge"}
+    ]
+  },
+  {
+    id:20, dateISO:"2026-08-13", dow:"Jue", leg:"shangrila", hotel:"GUI CHEN QI SHE Homestay",
+    title:"Shangri-La — sin día fijado: Songzanlin + Potatso + Napa Lake",
+    note:"Tu hoja no reparte actividades por día en Shangri-La. Recuerda evitar esfuerzos intensos los 2 primeros días por la altitud (>3.200 m), según tu propia hoja. Costes de las 2 primeras no incluidos en el acumulado.",
+    noteAlert:true, planB:"",
+    blocks:[
+      {time:"Sin horario fijo", place:"Songzanlin Monastery", desc:"Más de 3.200 m de altitud, según tu hoja.", info:"90 CNY (~11€, no incluido en el acumulado)", cost:0, map:"Songzanlin Monastery"},
+      {time:"Sin horario fijo", place:"Potatso National Park", desc:"Mucha radiación UV: protector solar y agua, según tu hoja.", info:"138 CNY (~17€, no incluido en el acumulado)", cost:0, map:"Potatso National Park"},
+      {time:"Sin horario fijo", place:"Napa Lake", desc:"", info:"Sin coste anotado", cost:0, map:"Napa Lake Shangri-La"}
+    ]
+  },
+  {
+    id:21, dateISO:"2026-08-14", dow:"Vie", leg:"chengdu", hotel:"Flowers Pleasing Qing Ju Hotel",
+    title:"Vuelo a Chengdu",
+    note:"", noteAlert:false, planB:"",
+    blocks:[
+      {time:"22:45–00:10 (+1 día)", place:"Vuelo Shangri-La (DIG) → Chengdu (TFU)", desc:"", info:"125€ (según tu hoja)", cost:125, badges:[{t:"✈️ Vuelo",cls:"time-est"}], map:"Chengdu Tianfu International Airport", startISO:"2026-08-14T22:45", endISO:"2026-08-15T00:10", startTz:TZ.china, endTz:TZ.china}
+    ]
+  },
+  {
+    id:22, dateISO:"2026-08-15", dow:"Sáb", leg:"chengdu", hotel:"Flowers Pleasing Qing Ju Hotel",
+    title:"Chengdu (día libre)",
+    note:"Tu hoja no anota ninguna actividad para Chengdu (columna en blanco) — día libre pendiente de planificar (p.ej. centro de pandas, Gran Buda de Leshan).",
+    noteAlert:true, planB:"",
+    blocks:[
+      {time:"Día completo", place:"Chengdu", desc:"Sin plan anotado todavía en tu hoja.", info:"Alojamiento 1 noche: 28€ (según tu hoja)", cost:28, map:"Chengdu"}
+    ]
+  },
+  {
+    id:23, dateISO:"2026-08-16", dow:"Dom", leg:"return", hotel:null,
+    title:"Vuelta a casa: Chengdu → Madrid → Bilbao",
+    note:"", noteAlert:false, planB:"",
+    blocks:[
+      {time:"01:30–07:40", place:"Vuelo TFU → MAD", desc:"", info:"565€ (según tu hoja)", cost:565, badges:[{t:"✈️ Vuelo",cls:"time-est"}], map:"Aeropuerto Adolfo Suárez Madrid-Barajas", startISO:"2026-08-16T01:30", endISO:"2026-08-16T07:40", startTz:TZ.china, endTz:TZ.spain},
+      {time:"10:55–11:55", place:"Vuelo MAD → BIO", desc:"Llegada a casa.", info:"45€ (según tu hoja)", cost:45, badges:[{t:"✈️ Vuelo",cls:"time-est"}], map:"Aeropuerto de Bilbao", startISO:"2026-08-16T10:55", endISO:"2026-08-16T11:55", startTz:TZ.spain, endTz:TZ.spain}
     ]
   }
 ];
@@ -407,23 +612,39 @@ async function saveChecklist(){
   }
 }
 
-const TRIP_YEAR = 2026, TRIP_MONTH_INDEX = 6, TRIP_FIRST_DAY = 25; // julio, 0-indexado
-
 function icsPad(n){ return String(n).padStart(2, '0'); }
 
-function toICSDateUTC(day, hour, minute){
-  // Seúl es UTC+9 todo el año (sin horario de verano)
-  const utcMs = Date.UTC(TRIP_YEAR, TRIP_MONTH_INDEX, day, hour - 9, minute);
-  const d = new Date(utcMs);
-  return d.getUTCFullYear() + icsPad(d.getUTCMonth() + 1) + icsPad(d.getUTCDate()) +
-    'T' + icsPad(d.getUTCHours()) + icsPad(d.getUTCMinutes()) + '00Z';
+function isoLocalToUTC(isoLocal, tz){
+  const [datePart, timePart] = isoLocal.split('T');
+  const [y, mo, d] = datePart.split('-').map(Number);
+  const [h, mi] = timePart.split(':').map(Number);
+  return new Date(Date.UTC(y, mo - 1, d, h - tz, mi));
+}
+
+function toICSString(date){
+  return date.getUTCFullYear() + icsPad(date.getUTCMonth() + 1) + icsPad(date.getUTCDate()) +
+    'T' + icsPad(date.getUTCHours()) + icsPad(date.getUTCMinutes()) + '00Z';
 }
 
 function parseBlockTime(timeStr){
   const m = timeStr.match(/(\d{1,2}):(\d{2})\s*[–-]\s*(\d{1,2}):(\d{2})/);
   if(m) return { sh:+m[1], sm:+m[2], eh:+m[3], em:+m[4] };
-  if(/mañana/i.test(timeStr)) return { sh:9, sm:0, eh:12, em:0 };
-  return { sh:12, sm:0, eh:13, em:0 }; // genérico para "—" u otros formatos libres
+  return { sh:10, sm:0, eh:18, em:0 }; // genérico para bloques sin hora concreta
+}
+
+function blockToICSRange(day, b){
+  if(b.startISO && b.endISO){
+    return {
+      start: isoLocalToUTC(b.startISO, b.startTz ?? legTz(day.leg)),
+      end: isoLocalToUTC(b.endISO, b.endTz ?? legTz(day.leg))
+    };
+  }
+  const { sh, sm, eh, em } = parseBlockTime(b.time);
+  const tz = legTz(day.leg);
+  return {
+    start: isoLocalToUTC(`${day.dateISO}T${icsPad(sh)}:${icsPad(sm)}`, tz),
+    end: isoLocalToUTC(`${day.dateISO}T${icsPad(eh)}:${icsPad(em)}`, tz)
+  };
 }
 
 function icsEscape(text){
@@ -431,21 +652,19 @@ function icsEscape(text){
 }
 
 function buildICS(){
-  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Seul 2026 Dashboard//ES', 'CALSCALE:GREGORIAN'];
+  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Verano 2026 Dashboard//ES', 'CALSCALE:GREGORIAN'];
 
   DAYS.forEach(day => {
-    const dayNum = TRIP_FIRST_DAY + day.id;
     day.blocks.forEach((b, idx) => {
-      const { sh, sm, eh, em } = parseBlockTime(b.time);
-      const dtStamp = toICSDateUTC(dayNum, sh, sm);
+      const { start, end } = blockToICSRange(day, b);
       lines.push(
         'BEGIN:VEVENT',
-        `UID:seul2026-${day.id}-${idx}@seoul-dashboard`,
-        `DTSTAMP:${dtStamp}`,
-        `DTSTART:${toICSDateUTC(dayNum, sh, sm)}`,
-        `DTEND:${toICSDateUTC(dayNum, eh, em)}`,
+        `UID:verano2026-${day.id}-${idx}@travel-planner`,
+        `DTSTAMP:${toICSString(start)}`,
+        `DTSTART:${toICSString(start)}`,
+        `DTEND:${toICSString(end)}`,
         `SUMMARY:${icsEscape(b.place)}`,
-        `DESCRIPTION:${icsEscape(b.desc + (b.info ? ' · ' + b.info : ''))}`,
+        `DESCRIPTION:${icsEscape((b.desc || '') + (b.info ? ' · ' + b.info : ''))}`,
         `LOCATION:${icsEscape(b.map || b.place)}`,
         'END:VEVENT'
       );
@@ -461,30 +680,30 @@ function downloadICS(){
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'seul-2026-itinerario.ics';
+  a.download = 'verano-2026-itinerario.ics';
   document.body.appendChild(a);
   a.click();
   a.remove();
   URL.revokeObjectURL(url);
 }
 
-function mapLinks(query){
+function mapLinks(query, leg){
   const q = encodeURIComponent(query);
-  return `<a class="maplink" target="_blank" rel="noopener" href="https://map.naver.com/v5/search/${q}">🧭 Naver</a>
-          <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${q}">🌍 Google</a>`;
+  const google = `<a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${q}">🌍 Google</a>`;
+  if(KOREA_LEGS.includes(leg)){
+    return `<a class="maplink" target="_blank" rel="noopener" href="https://map.naver.com/v5/search/${q}">🧭 Naver</a>${google}`;
+  }
+  return google;
 }
 
 function getTodayIndex(){
-  const TRIP_YEAR = 2026, TRIP_MONTH = 6; // julio (0-indexado)
-  const FIRST_DAY = 25, LAST_DAY = 29;
   const now = new Date();
-  const y = now.getFullYear(), m = now.getMonth(), d = now.getDate();
-
-  if(y === TRIP_YEAR && m === TRIP_MONTH && d >= FIRST_DAY && d <= LAST_DAY){
-    return d - FIRST_DAY;
-  }
-  const afterTrip = y > TRIP_YEAR || (y === TRIP_YEAR && (m > TRIP_MONTH || (m === TRIP_MONTH && d > LAST_DAY)));
-  return afterTrip ? DAYS.length - 1 : 0;
+  const todayISO = now.getFullYear() + '-' + icsPad(now.getMonth() + 1) + '-' + icsPad(now.getDate());
+  const idx = DAYS.findIndex(d => d.dateISO === todayISO);
+  if(idx !== -1) return idx;
+  if(todayISO < DAYS[0].dateISO) return 0;
+  if(todayISO > DAYS[DAYS.length - 1].dateISO) return DAYS.length - 1;
+  return 0;
 }
 
 function renderAll(){
@@ -495,10 +714,13 @@ function renderAll(){
   const initialIdx = getTodayIndex();
 
   DAYS.forEach((day, i) => {
+    const isLegFirst = i === 0 || DAYS[i-1].leg !== day.leg;
+    const dateShort = day.dateISO.slice(8,10) + ' ' + (day.dateISO.slice(5,7) === '07' ? 'jul' : 'ago');
+
     const tab = document.createElement('div');
-    tab.className = 'tab' + (i===initialIdx ? ' active' : '');
+    tab.className = 'tab' + (i===initialIdx ? ' active' : '') + (isLegFirst ? ' leg-first' : '');
     tab.dataset.idx = i;
-    tab.innerHTML = `${day.label}<span class="d">${day.date}</span>`;
+    tab.innerHTML = `${LEG_LABEL[day.leg]}<span class="d">${day.dow} ${dateShort}</span>`;
     tab.onclick = () => selectDay(i);
     tabsEl.appendChild(tab);
 
@@ -516,14 +738,14 @@ function renderAll(){
           <input type="checkbox" ${isDone ? 'checked' : ''} data-key="${key}">
           <div style="flex:1">
             <div class="place">${b.place}</div>
-            <div class="desc">${b.desc}</div>
+            ${b.desc ? `<div class="desc">${b.desc}</div>` : ''}
             ${b.info ? `<div class="info-line">${b.info}</div>` : ''}
             <div class="badges">
-              ${b.badges.map(bd => bd.c
+              ${(b.badges || []).map(bd => bd.c
                 ? `<span class="badge" style="background:var(--${bd.c})">${bd.t}</span>`
                 : `<span class="badge ${bd.cls}">${bd.t}</span>`
               ).join('')}
-              ${b.map ? mapLinks(b.map) : ''}
+              ${b.map ? mapLinks(b.map, day.leg) : ''}
             </div>
           </div>
         </div>
@@ -531,11 +753,12 @@ function renderAll(){
     }).join('');
 
     panel.innerHTML = `
-      <div class="day-head"><h2>${day.title}</h2><span>${day.date} jul</span></div>
+      <div class="day-head"><h2>${day.title}</h2><span>${day.dow} ${dateShort}</span></div>
+      <div class="day-sub">${LEG_LABEL[day.leg]}${day.hotel ? ' · 🏨 ' + day.hotel : ''}</div>
       <div class="day-progress" id="dayprog-${i}"></div>
       <div class="day-budget" id="daybudget-${i}"></div>
       <div class="day-weather" id="dayweather-${i}"></div>
-      <div class="note${day.noteAlert ? ' alert' : ''}">${day.note}</div>
+      ${day.note ? `<div class="note${day.noteAlert ? ' alert' : ''}">${day.note}</div>` : ''}
       ${day.planB ? `<details class="planb"><summary>Plan B (lluvia)</summary><div class="planb-body">${day.planB}</div></details>` : ''}
       <div class="timeline">${blocksHtml}</div>
     `;
@@ -548,6 +771,7 @@ function renderAll(){
 
   updateProgress();
   updateBudget();
+  try{ renderBudgetChart(); }catch(e){ console.error('No se pudo dibujar el gráfico de presupuesto:', e); }
 
   const activeTab = tabsEl.children[initialIdx];
   if(activeTab) activeTab.scrollIntoView({ inline: 'center', block: 'nearest' });
@@ -575,10 +799,7 @@ function updateProgress(){
   document.getElementById('overallFill').style.width = total ? `${(done/total*100).toFixed(0)}%` : '0%';
 }
 
-const KRW_PER_EUR = 1550; // aproximado — revisa el cambio real antes del viaje
-
-function formatKRW(n){ return '₩' + n.toLocaleString('es-ES'); }
-function formatEUR(n){ return (n / KRW_PER_EUR).toLocaleString('es-ES', { maximumFractionDigits: 0 }) + ' €'; }
+function formatEUR(n){ return n.toLocaleString('es-ES', { maximumFractionDigits: 0 }) + ' €'; }
 
 function updateBudget(){
   let cumulative = 0;
@@ -587,52 +808,85 @@ function updateBudget(){
     cumulative += dayTotal;
     const el = document.getElementById('daybudget-' + i);
     if(el){
-      el.innerHTML = `💰 <b>${formatKRW(dayTotal)}</b> (~${formatEUR(dayTotal)}) hoy · acumulado <b>${formatKRW(cumulative)}</b> (~${formatEUR(cumulative)})`;
+      el.innerHTML = dayTotal
+        ? `💰 <b>${formatEUR(dayTotal)}</b> hoy · acumulado <b>${formatEUR(cumulative)}</b>`
+        : `💰 acumulado <b>${formatEUR(cumulative)}</b>`;
     }
   });
   const totalEl = document.getElementById('kpiBudgetTotal');
-  if(totalEl) totalEl.textContent = `${formatKRW(cumulative)} (~${formatEUR(cumulative)})`;
+  if(totalEl) totalEl.textContent = formatEUR(cumulative);
 }
 
-const SEOUL_LAT = 37.5665, SEOUL_LON = 126.9780;
+function renderBudgetChart(){
+  const byLeg = {};
+  DAYS.forEach(day => {
+    const total = day.blocks.reduce((sum, b) => sum + (b.cost || 0), 0);
+    byLeg[day.leg] = (byLeg[day.leg] || 0) + total;
+  });
+  const order = ['transit','seoul','gyeongju','busan','jeonju','seoul2','fuzhou','kunming','dali','lijiang','shangrila','chengdu','return'];
+  const labels = order.filter(k => byLeg[k]).map(k => LEG_LABEL[k]);
+  const data = order.filter(k => byLeg[k]).map(k => byLeg[k]);
+
+  const ctx = document.getElementById('distChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        data,
+        backgroundColor: '#d1a54e',
+        borderRadius: 5,
+        barThickness: 16
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: { legend: { display:false } },
+      scales: {
+        x: { ticks:{ color:'#b8ab98', font:{size:10} }, grid:{ color:'#4a3f36' }, title:{display:true,text:'€ por persona',color:'#b8ab98',font:{size:10}} },
+        y: { ticks:{ color:'#f1e9da', font:{size:11} }, grid:{ display:false } }
+      }
+    }
+  });
+}
+
 const WEATHER_HORIZON_DAYS = 16; // Open-Meteo da pronóstico diario fiable hasta ~16 días vista
 
-function tripDateStr(dayId){
-  const d = TRIP_FIRST_DAY + dayId;
-  return `${TRIP_YEAR}-${icsPad(TRIP_MONTH_INDEX + 1)}-${icsPad(d)}`;
-}
-
 async function updateWeather(){
-  const tripStart = new Date(TRIP_YEAR, TRIP_MONTH_INDEX, TRIP_FIRST_DAY);
-  const daysUntil = Math.ceil((tripStart - new Date()) / 86400000);
-  if(daysUntil > WEATHER_HORIZON_DAYS) return; // demasiado lejos: se mantiene la estimación estática
+  const uniqueLegs = [...new Set(DAYS.map(d => d.leg))].filter(leg => LEG_COORDS[leg]);
 
-  try{
-    const startDate = tripDateStr(0);
-    const endDate = tripDateStr(DAYS.length - 1);
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${SEOUL_LAT}&longitude=${SEOUL_LON}` +
-      `&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FSeoul` +
-      `&start_date=${startDate}&end_date=${endDate}`;
-    const res = await fetch(url);
-    if(!res.ok) return;
-    const data = await res.json();
-    const dates = data.daily && data.daily.time;
-    if(!dates || !dates.length) return;
+  for(const leg of uniqueLegs){
+    const legDays = DAYS.filter(d => d.leg === leg);
+    const firstDate = new Date(legDays[0].dateISO + 'T00:00:00');
+    const daysUntil = Math.ceil((firstDate - new Date()) / 86400000);
+    if(daysUntil > WEATHER_HORIZON_DAYS) continue;
 
-    const { temperature_2m_max: maxes, temperature_2m_min: mins, precipitation_probability_max: precs } = data.daily;
+    try{
+      const { lat, lon } = LEG_COORDS[leg];
+      const startDate = legDays[0].dateISO;
+      const endDate = legDays[legDays.length - 1].dateISO;
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
+        `&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto` +
+        `&start_date=${startDate}&end_date=${endDate}`;
+      const res = await fetch(url);
+      if(!res.ok) continue;
+      const data = await res.json();
+      const dates = data.daily && data.daily.time;
+      if(!dates || !dates.length) continue;
 
-    DAYS.forEach((day, i) => {
-      const idx = dates.indexOf(tripDateStr(day.id));
-      if(idx === -1) return;
-      const el = document.getElementById('dayweather-' + i);
-      if(el) el.textContent = `🌦 Previsión real (${day.date}): ${Math.round(mins[idx])}–${Math.round(maxes[idx])}°C · lluvia ${precs[idx]}%`;
-    });
+      const { temperature_2m_max: maxes, temperature_2m_min: mins, precipitation_probability_max: precs } = data.daily;
 
-    const overallMin = Math.min(...mins), overallMax = Math.max(...maxes), overallPrec = Math.max(...precs);
-    const kpiEl = document.getElementById('kpiWeather');
-    if(kpiEl) kpiEl.innerHTML = `${Math.round(overallMin)}–${Math.round(overallMax)}°C · lluvia hasta ${overallPrec}% <span style="opacity:.6;font-weight:400;">(previsión real)</span>`;
-  }catch(e){
-    console.error('No se pudo obtener el clima real (¿sin conexión?):', e);
+      legDays.forEach(day => {
+        const globalIdx = DAYS.indexOf(day);
+        const idx = dates.indexOf(day.dateISO);
+        if(idx === -1) return;
+        const el = document.getElementById('dayweather-' + globalIdx);
+        if(el) el.textContent = `🌦 Previsión real: ${Math.round(mins[idx])}–${Math.round(maxes[idx])}°C · lluvia ${precs[idx]}%`;
+      });
+    }catch(e){
+      console.error(`No se pudo obtener el clima real de ${leg} (¿sin conexión?):`, e);
+    }
   }
 }
 
@@ -653,29 +907,6 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').catch((err) => console.error('SW registration failed:', err));
   });
 }
-
-const ctx = document.getElementById('distChart').getContext('2d');
-new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: ['Namsan/Myeongdong','Gyeongbokgung/Bukchon','Gwangjang Mkt','DDP','Seongsu-dong','Hongdae','Han River'],
-    datasets: [{
-      data: [15, 20, 20, 10, 25, 30, 25],
-      backgroundColor: ['#00a5de','#ef7c1c','#163a8a','#00a5de','#00a651','#cd7c2f','#8a8a8a'],
-      borderRadius: 5,
-      barThickness: 16
-    }]
-  },
-  options: {
-    indexAxis: 'y',
-    responsive: true,
-    plugins: { legend: { display:false } },
-    scales: {
-      x: { ticks:{ color:'#b8ab98', font:{size:10} }, grid:{ color:'#4a3f36' }, title:{display:true,text:'minutos',color:'#b8ab98',font:{size:10}} },
-      y: { ticks:{ color:'#f1e9da', font:{size:11} }, grid:{ display:false } }
-    }
-  }
-});
 </script>
 </body>
 </html>

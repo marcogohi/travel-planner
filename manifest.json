@@ -1,7 +1,7 @@
 {
-  "name": "Seúl 2026 — Dashboard de itinerario",
-  "short_name": "Seúl 2026",
-  "description": "Itinerario y checklist del viaje a Seúl (25–29 jul 2026)",
+  "name": "Verano 2026 — Dashboard de itinerario",
+  "short_name": "Verano 2026",
+  "description": "Itinerario y checklist del viaje Corea + China (24 jul – 16 ago 2026)",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
