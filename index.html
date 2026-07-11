@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seúl · 25–29 jul 2026</title>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#221c18">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Seúl 2026">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg: #221c18;
+    --bg-alt: #2b2420;
+    --card: #2f2822;
+    --card-2: #362e27;
+    --hairline: #4a3f36;
+    --text: #f1e9da;
+    --text-dim: #b8ab98;
+    --gold: #d1a54e;
+    --line4: #00a5de;
+    --line3: #ef7c1c;
+    --line1: #163a8a;
+    --line2: #00a651;
+    --line6: #cd7c2f;
+    --red: #c1392f;
+    --rain: #5b8fb0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:720px;margin:0 auto;padding:18px 16px 40px;}
+
+  header.top{
+    display:flex;flex-direction:column;gap:4px;
+    padding:18px 18px 20px;
+    background:linear-gradient(160deg,var(--bg-alt),var(--bg));
+    border:1px solid var(--hairline);
+    border-radius:14px;
+    margin-bottom:14px;
+    position:relative;
+    overflow:hidden;
+  }
+  header.top::after{
+    content:"";
+    position:absolute; right:-30px; top:-30px;
+    width:140px;height:140px;border-radius:50%;
+    background:radial-gradient(circle, #00a5de33 0%, transparent 70%);
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;letter-spacing:2px;color:var(--line4);
+    text-transform:uppercase;
+  }
+  h1{
+    font-family:'Noto Serif KR',serif;
+    font-size:26px;margin:2px 0 2px;font-weight:700;
+    letter-spacing:0.5px;
+  }
+  .sub{font-size:13px;color:var(--text-dim);}
+  .sub b{color:var(--text);font-weight:600;}
+
+  .progress-overall{
+    background:var(--card);border:1px solid var(--hairline);
+    border-radius:10px;padding:10px 14px;margin-bottom:14px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .progress-overall .label{
+    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);
+    white-space:nowrap;
+  }
+  .progress-track{flex:1;height:6px;background:var(--hairline);border-radius:3px;overflow:hidden;}
+  .progress-fill{height:100%;background:var(--gold);border-radius:3px;transition:width .3s ease;}
+  .progress-overall .count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);font-weight:700;white-space:nowrap;}
+
+  .export-row{display:flex;justify-content:flex-end;margin-bottom:14px;}
+  .btn-export{
+    font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:600;
+    color:var(--text);background:var(--card);border:1px solid var(--hairline);
+    border-radius:8px;padding:8px 12px;cursor:pointer;
+  }
+  .btn-export:hover{border-color:var(--gold);color:var(--gold);}
+
+  .kpi-row{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;
+    margin-bottom:16px;
+  }
+  .kpi{
+    background:var(--card);border:1px solid var(--hairline);
+    border-radius:12px;padding:12px 13px;
+  }
+  .kpi .k-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;letter-spacing:1px;color:var(--text-dim);
+    text-transform:uppercase;margin-bottom:6px;
+  }
+  .kpi .k-value{font-size:15px;font-weight:700;line-height:1.3;}
+  .kpi.warn{border-color:var(--red);}
+  .kpi.warn .k-label{color:#e08a83;}
+  .kpi.photo{border-color:var(--gold);}
+  .kpi.photo .k-label{color:var(--gold);}
+
+  .tabs{
+    display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;
+    margin-bottom:14px;
+    -ms-overflow-style:none;scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:0 0 auto;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;color:var(--text-dim);
+    background:var(--card);border:1px solid var(--hairline);
+    border-radius:20px;padding:8px 14px;cursor:pointer;
+    white-space:nowrap;transition:all .15s ease;
+  }
+  .tab .d{display:block;font-size:9px;letter-spacing:1px;opacity:.75;}
+  .tab.active{
+    background:var(--gold);color:#241d16;border-color:var(--gold);
+    font-weight:700;
+  }
+  .tab.active .d{opacity:.7;}
+
+  .day-panel{display:none;}
+  .day-panel.active{display:block;animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+
+  .day-head{
+    display:flex;justify-content:space-between;align-items:baseline;
+    margin-bottom:4px;flex-wrap:wrap;gap:4px;
+  }
+  .day-head h2{
+    font-family:'Noto Serif KR',serif;font-size:19px;margin:0;font-weight:700;
+  }
+  .day-head span{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--line4);}
+  .day-progress{
+    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);
+    margin-bottom:4px;
+  }
+  .day-progress b{color:var(--gold);}
+  .day-budget{
+    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);
+    margin-bottom:10px;
+  }
+  .day-budget b{color:var(--gold);}
+  .day-weather{
+    font-size:12.5px;color:var(--rain);
+    margin-bottom:8px;
+  }
+  .day-weather:empty{display:none;}
+
+  .note{
+    font-size:12.5px;color:var(--text-dim);
+    background:var(--card-2);border-left:3px solid var(--gold);
+    border-radius:6px;padding:8px 10px;margin-bottom:8px;line-height:1.45;
+  }
+  .note.alert{border-left-color:var(--red);}
+
+  details.planb{
+    margin-bottom:12px;background:var(--card-2);
+    border-left:3px solid var(--rain);border-radius:6px;
+    font-size:12.5px;color:var(--text-dim);
+  }
+  details.planb summary{
+    cursor:pointer;padding:8px 10px;font-weight:600;color:var(--rain);
+    list-style:none;
+  }
+  details.planb summary::-webkit-details-marker{display:none;}
+  details.planb summary::before{content:"☔ ";}
+  details.planb[open] summary::before{content:"☔ ";}
+  details.planb .planb-body{padding:0 10px 10px;line-height:1.45;}
+
+  .timeline{border-left:2px solid var(--hairline);margin-left:6px;padding-left:16px;}
+  .block{position:relative;padding-bottom:18px;}
+  .block:last-child{padding-bottom:2px;}
+  .block::before{
+    content:"";position:absolute;left:-21px;top:3px;
+    width:9px;height:9px;border-radius:50%;
+    background:var(--gold);border:2px solid var(--bg);
+  }
+  .block.done::before{background:#6b9e6b;}
+  .block-top{display:flex;align-items:flex-start;gap:8px;}
+  .block-top input[type="checkbox"]{
+    margin-top:3px;width:16px;height:16px;accent-color:var(--gold);
+    flex:0 0 auto;cursor:pointer;
+  }
+  .block .time{
+    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);
+    letter-spacing:0.5px;margin-bottom:3px;
+  }
+  .block .place{font-size:15px;font-weight:600;margin-bottom:2px;}
+  .block.done .place{text-decoration:line-through;opacity:.6;}
+  .block .desc{font-size:13px;color:var(--text-dim);line-height:1.45;margin-bottom:6px;}
+  .block .info-line{font-size:11.5px;color:var(--text-dim);margin-bottom:6px;}
+  .badges{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+  .badge{
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;
+    color:#fff;padding:3px 8px;border-radius:4px;letter-spacing:0.3px;
+  }
+  .badge.time-est{
+    background:transparent;color:var(--text-dim);font-weight:500;
+    border:1px solid var(--hairline);
+  }
+  .badge.golden{
+    background:transparent;color:var(--gold);font-weight:600;
+    border:1px solid var(--gold);
+  }
+  a.maplink{
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;
+    color:var(--text);text-decoration:none;border:1px solid var(--hairline);
+    padding:3px 8px;border-radius:4px;
+  }
+  a.maplink:hover{border-color:var(--line4);color:var(--line4);}
+
+  .chart-box{
+    background:var(--card);border:1px solid var(--hairline);
+    border-radius:12px;padding:16px 16px 8px;margin-top:18px;
+  }
+  .chart-box h3{
+    font-family:'Noto Serif KR',serif;font-size:15px;margin:0 0 4px;
+  }
+  .chart-box p{font-size:11.5px;color:var(--text-dim);margin:0 0 10px;}
+  canvas{max-height:220px;}
+
+  footer{
+    margin-top:16px;font-size:11px;color:var(--text-dim);
+    text-align:center;line-height:1.6;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <span class="eyebrow">Itinerario · Ruta Seúl</span>
+    <h1>25 – 29 julio 2026</h1>
+    <div class="sub">🏨 <b>OYO Hostel Myeongdong 3</b> · Myeongdong · base en Línea 4 (teal)</div>
+  </header>
+
+  <div class="progress-overall">
+    <span class="label">PROGRESO</span>
+    <div class="progress-track"><div class="progress-fill" id="overallFill" style="width:0%"></div></div>
+    <span class="count" id="overallCount">0/0</span>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="k-label">Estancia</div>
+      <div class="k-value">4 noches</div>
+    </div>
+    <div class="kpi">
+      <div class="k-label">Clima previsto</div>
+      <div class="k-value" id="kpiWeather">27–29°C · lluvia probable <span style="opacity:.6;font-weight:400;">(estimación)</span></div>
+    </div>
+    <div class="kpi warn">
+      <div class="k-label">⚠ Festival</div>
+      <div class="k-value">WATERBOMB · 24–26 jul</div>
+    </div>
+    <div class="kpi warn">
+      <div class="k-label">Cierres palacios</div>
+      <div class="k-value">Gyeongbokgung: mar · Changdeok: lun</div>
+    </div>
+    <div class="kpi photo">
+      <div class="k-label">📷 Luz dorada</div>
+      <div class="k-value">~18:40–19:45 tarde · ~05:30–06:30 mañana</div>
+    </div>
+    <div class="kpi">
+      <div class="k-label">💰 Presupuesto est.</div>
+      <div class="k-value" id="kpiBudgetTotal">—</div>
+    </div>
+  </div>
+
+  <div class="export-row">
+    <button class="btn-export" id="exportIcsBtn" type="button">📅 Exportar itinerario (.ics)</button>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+  <div id="panels"></div>
+
+  <div class="chart-box">
+    <h3>Tiempo aprox. desde el hotel</h3>
+    <p>Minutos estimados en metro/a pie desde Myeongdong — orientativo, confirma con Naver Map / KakaoMap el mismo día.</p>
+    <canvas id="distChart"></canvas>
+  </div>
+
+  <footer>
+    Estimaciones de tiempo, clima y luz solar orientativas a fecha de esta consulta (11 jul 2026).<br>
+    Fuentes: blogs de viaje sobre Seúl, previsiones climáticas, calculadoras de sol y webs oficiales de palacios/N Seoul Tower.<br>
+    Presupuesto por bloque: coste aproximado por persona (entradas + comida estimada), no incluye alojamiento ni vuelos · cambio usado: 1€ ≈ 1.550₩ (orientativo).<br>
+    El progreso marcado se sincroniza entre dispositivos que abran el mismo enlace con token.
+  </footer>
+</div>
+
+<script>
+const DAYS = [
+  {
+    id: 0, label:"Día 1", date:"Sáb 25", title:"Llegada · Myeongdong",
+    note:"Llegada 18:00 a ICN. Con el vuelo largo encima, plan sin ambición: la noche la tenéis literalmente en la puerta del hostel.",
+    noteAlert:false,
+    planB:"Si diluvia nada más llegar: centro comercial subterráneo Myeongdong Underground Shopping Center, todo cubierto y a un paso del hotel.",
+    blocks:[
+      {time:"19:00–20:00", place:"Traslado ICN → Myeongdong", desc:"AREX o taxi hasta el hotel. Check-in en OYO Hostel Myeongdong 3.", info:"AREX directo ~9.500₩ · taxi ~55.000–65.000₩", cost:9500, badges:[{t:"LÍNEA 4",c:"line4"},{t:"~55 min",cls:"time-est"}], map:"AREX Incheon Airport Seoul"},
+      {time:"20:30–22:30", place:"Myeongdong Night Market", desc:"Street food a pie del hotel: tteokbokki, tornado potato, brochetas. Cero logística, cero metro.", info:"Entrada libre · pagas por puesto", cost:15000, badges:[{t:"0 min · a pie",cls:"time-est"}], map:"Myeongdong Night Market Seoul"}
+    ]
+  },
+  {
+    id:1, label:"Día 2", date:"Dom 26", title:"Seúl histórico",
+    note:"Gyeongbokgung y Changdeokgung abiertos hoy (domingo) sin restricción de cierre semanal.",
+    noteAlert:false,
+    planB:"Si el chaparrón es fuerte: Museo Nacional de Corea o el Museo Popular Nacional (dentro del recinto de Gyeongbokgung), ambos cubiertos. Ikseon-dong e Insadong tienen muchos cafés donde refugiarse entre tramos.",
+    blocks:[
+      {time:"09:00–11:30", place:"Gyeongbokgung Palace", desc:"Entra pronto para evitar el grueso de los grupos. Cambio de guardia a las 10:00. Entrada gratis si vais de hanbok.", info:"₩3.000 adulto · 09:00–18:30 (jun–ago) · cierra martes", cost:3000, badges:[{t:"LÍNEA 3",c:"line3"},{t:"~20 min",cls:"time-est"}], map:"Gyeongbokgung Palace Seoul"},
+      {time:"11:30–12:30", place:"Bukchon Hanok Village", desc:"A pie desde el palacio. Callejones de hanoks, miradores sobre tejados — buen material para cámara analógica.", info:"Entrada libre", cost:0, badges:[{t:"a pie desde palacio",cls:"time-est"}], map:"Bukchon Hanok Village Seoul"},
+      {time:"12:30–14:00", place:"Ikseon-dong", desc:"Comida y cafés entre hanoks reconvertidos.", info:"Entrada libre", cost:15000, badges:[{t:"a pie",cls:"time-est"}], map:"Ikseondong Seoul"},
+      {time:"14:30–17:00", place:"Changdeokgung + Insadong", desc:"Opcional si queda energía: Jardín Secreto (reserva aparte, entrada limitada) y calle de té/anticuarios de Insadong.", info:"Palacio ₩3.000 · 09:00–18:30 · cierra lunes · Jardín Secreto ~₩5.000-8.000 aparte, reserva obligatoria", cost:3000, badges:[{t:"a pie",cls:"time-est"}], map:"Changdeokgung Palace Seoul"},
+      {time:"19:00–21:30", place:"Gwangjang Market", desc:"Cena de mercado — algunos puestos cierran sobre las 22:00, no dejéis esto para muy tarde.", info:"Entrada libre · pagas por plato", cost:20000, badges:[{t:"LÍNEA 1",c:"line1"},{t:"~20 min",cls:"time-est"}], map:"Gwangjang Market Seoul"}
+    ]
+  },
+  {
+    id:2, label:"Día 3", date:"Lun 27", title:"Myeongdong · Namsan · DDP",
+    note:"Día casi entero sin salir de vuestra zona — el hotel os pone en el centro del tablero hoy.",
+    noteAlert:false,
+    planB:"Con lluvia fuerte: el observatorio de N Seoul Tower sigue siendo indoor, pero el cable car puede pausarse con viento/tormenta — llevad plan de subir a pie o en bus si lo cierran. Alternativa completa: Lotte Young Plaza / galerías subterráneas de Myeongdong.",
+    blocks:[
+      {time:"10:00–13:00", place:"Myeongdong (con calma)", desc:"Skincare, cafés, calles sin la prisa del día de llegada.", info:"Entrada libre", cost:10000, badges:[{t:"0 min",cls:"time-est"}], map:"Myeongdong Seoul"},
+      {time:"17:30–19:30", place:"N Seoul Tower (Namsan)", desc:"Subida en cable car o a pie. Entrar antes del atardecer para ver caer la luz sobre la ciudad.", info:"Observatorio ~₩16.000 · cable car ida-vuelta ~₩14.000 · 10:00–23:00 (sujeto a clima)", cost:30000, badges:[{t:"LÍNEA 4 + cable car",c:"line4"},{t:"~15 min",cls:"time-est"},{t:"📷 luz dorada",cls:"golden"}], map:"N Seoul Tower Namsan"},
+      {time:"20:00–22:00", place:"DDP + cena Dongdaemun", desc:"Dongdaemun Design Plaza iluminado de noche. Cena de dakhanmari en el callejón cercano.", info:"Entrada libre (exposiciones aparte)", cost:25000, badges:[{t:"LÍNEA 4",c:"line4"},{t:"~10 min",cls:"time-est"}], map:"Dongdaemun Design Plaza Seoul"}
+    ]
+  },
+  {
+    id:3, label:"Día 4", date:"Mar 28", title:"Barrios auténticos + río",
+    note:"Gyeongbokgung cierra hoy (martes) — no pasa nada, no está en el plan de hoy. Puede coincidir con el Hangang Summer Festival en el río.",
+    noteAlert:true,
+    planB:"Si llueve para el cierre en el río: cambiadlo por una tarde-noche de cafés cubiertos en Seongsu (Daelim Warehouse y similares) o un centro comercial en Seongsu/Gangnam. Guardad el Han River para otra tarde si el pronóstico mejora.",
+    blocks:[
+      {time:"10:00–13:00", place:"Seongsu-dong", desc:"Cafés de diseño y naves industriales reconvertidas — el barrio más fotogénico del viaje.", info:"Entrada libre", cost:10000, badges:[{t:"LÍNEA 2",c:"line2"},{t:"~25 min",cls:"time-est"}], map:"Seongsu-dong Seoul"},
+      {time:"14:00–17:00", place:"Hongdae / Itaewon", desc:"Energía joven y arte callejero (Hongdae) o ambiente internacional más relajado (Itaewon) — elegid según el cuerpo.", info:"Entrada libre", cost:15000, badges:[{t:"LÍNEA 2 / 6",c:"line6"},{t:"~30 min",cls:"time-est"}], map:"Hongdae Seoul"},
+      {time:"19:00–21:30", place:"Han River (Banpo/Yeouido)", desc:"Cierre del viaje junto al río. Si coincide el Hangang Summer Festival: cine al aire libre y música en vivo.", info:"Entrada libre", cost:10000, badges:[{t:"metro + bus",cls:"time-est"},{t:"~25 min",cls:"time-est"},{t:"📷 luz dorada",cls:"golden"}], map:"Banpo Hangang Park Seoul"}
+    ]
+  },
+  {
+    id:4, label:"Día 5", date:"Mié 29", title:"Salida",
+    note:"Check-out y traslado hacia el siguiente destino. Si queda alguna hora libre, todo está a pie del hotel.",
+    noteAlert:false,
+    planB:"",
+    blocks:[
+      {time:"Mañana", place:"Últimas horas en Myeongdong", desc:"Myeongdong Cathedral o compras de última hora, sin desplazamientos.", info:"Entrada libre", cost:10000, badges:[{t:"0 min",cls:"time-est"}], map:"Myeongdong Cathedral Seoul"},
+      {time:"—", place:"Traslado de salida", desc:"Rumbo a próximo destino / ICN.", info:"", cost:9500, badges:[{t:"LÍNEA 4",c:"line4"}], map:"Incheon International Airport"}
+    ]
+  }
+];
+
+let checklist = {};
+const urlToken = new URLSearchParams(location.search).get('t');
+if (urlToken) localStorage.setItem('dashboardToken', urlToken);
+const TOKEN = urlToken || localStorage.getItem('dashboardToken') || '';
+let readOnly = false;
+
+function blockKey(dayId, idx){ return dayId + "-" + idx; }
+
+function apiUrl(){
+  return '/api/checklist?t=' + encodeURIComponent(TOKEN);
+}
+
+function showAuthWarning(){
+  readOnly = true;
+  const banner = document.createElement('div');
+  banner.className = 'note alert';
+  banner.style.marginBottom = '14px';
+  banner.textContent = TOKEN
+    ? '⚠ Token inválido: el checklist se muestra en modo solo lectura y no se sincroniza.'
+    : '⚠ Falta el token de acceso en el enlace: el checklist se muestra en modo solo lectura y no se sincroniza.';
+  document.querySelector('.wrap').insertBefore(banner, document.querySelector('.progress-overall'));
+}
+
+async function loadChecklist(){
+  try{
+    const res = await fetch(apiUrl());
+    if(res.status === 401){ showAuthWarning(); checklist = {}; return; }
+    if(res.ok){ checklist = await res.json(); }
+  }catch(e){
+    checklist = {};
+  }
+}
+
+async function saveChecklist(){
+  if(readOnly) return;
+  try{
+    const res = await fetch(apiUrl(), {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(checklist)
+    });
+    if(res.status === 401) showAuthWarning();
+  }catch(e){
+    console.error("No se pudo guardar el progreso (¿sin conexión?):", e);
+  }
+}
+
+const TRIP_YEAR = 2026, TRIP_MONTH_INDEX = 6, TRIP_FIRST_DAY = 25; // julio, 0-indexado
+
+function icsPad(n){ return String(n).padStart(2, '0'); }
+
+function toICSDateUTC(day, hour, minute){
+  // Seúl es UTC+9 todo el año (sin horario de verano)
+  const utcMs = Date.UTC(TRIP_YEAR, TRIP_MONTH_INDEX, day, hour - 9, minute);
+  const d = new Date(utcMs);
+  return d.getUTCFullYear() + icsPad(d.getUTCMonth() + 1) + icsPad(d.getUTCDate()) +
+    'T' + icsPad(d.getUTCHours()) + icsPad(d.getUTCMinutes()) + '00Z';
+}
+
+function parseBlockTime(timeStr){
+  const m = timeStr.match(/(\d{1,2}):(\d{2})\s*[–-]\s*(\d{1,2}):(\d{2})/);
+  if(m) return { sh:+m[1], sm:+m[2], eh:+m[3], em:+m[4] };
+  if(/mañana/i.test(timeStr)) return { sh:9, sm:0, eh:12, em:0 };
+  return { sh:12, sm:0, eh:13, em:0 }; // genérico para "—" u otros formatos libres
+}
+
+function icsEscape(text){
+  return String(text).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n');
+}
+
+function buildICS(){
+  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Seul 2026 Dashboard//ES', 'CALSCALE:GREGORIAN'];
+
+  DAYS.forEach(day => {
+    const dayNum = TRIP_FIRST_DAY + day.id;
+    day.blocks.forEach((b, idx) => {
+      const { sh, sm, eh, em } = parseBlockTime(b.time);
+      const dtStamp = toICSDateUTC(dayNum, sh, sm);
+      lines.push(
+        'BEGIN:VEVENT',
+        `UID:seul2026-${day.id}-${idx}@seoul-dashboard`,
+        `DTSTAMP:${dtStamp}`,
+        `DTSTART:${toICSDateUTC(dayNum, sh, sm)}`,
+        `DTEND:${toICSDateUTC(dayNum, eh, em)}`,
+        `SUMMARY:${icsEscape(b.place)}`,
+        `DESCRIPTION:${icsEscape(b.desc + (b.info ? ' · ' + b.info : ''))}`,
+        `LOCATION:${icsEscape(b.map || b.place)}`,
+        'END:VEVENT'
+      );
+    });
+  });
+
+  lines.push('END:VCALENDAR');
+  return lines.join('\r\n');
+}
+
+function downloadICS(){
+  const blob = new Blob([buildICS()], { type: 'text/calendar;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'seul-2026-itinerario.ics';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+function mapLinks(query){
+  const q = encodeURIComponent(query);
+  return `<a class="maplink" target="_blank" rel="noopener" href="https://map.naver.com/v5/search/${q}">🧭 Naver</a>
+          <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${q}">🌍 Google</a>`;
+}
+
+function getTodayIndex(){
+  const TRIP_YEAR = 2026, TRIP_MONTH = 6; // julio (0-indexado)
+  const FIRST_DAY = 25, LAST_DAY = 29;
+  const now = new Date();
+  const y = now.getFullYear(), m = now.getMonth(), d = now.getDate();
+
+  if(y === TRIP_YEAR && m === TRIP_MONTH && d >= FIRST_DAY && d <= LAST_DAY){
+    return d - FIRST_DAY;
+  }
+  const afterTrip = y > TRIP_YEAR || (y === TRIP_YEAR && (m > TRIP_MONTH || (m === TRIP_MONTH && d > LAST_DAY)));
+  return afterTrip ? DAYS.length - 1 : 0;
+}
+
+function renderAll(){
+  const tabsEl = document.getElementById('tabs');
+  const panelsEl = document.getElementById('panels');
+  tabsEl.innerHTML = "";
+  panelsEl.innerHTML = "";
+  const initialIdx = getTodayIndex();
+
+  DAYS.forEach((day, i) => {
+    const tab = document.createElement('div');
+    tab.className = 'tab' + (i===initialIdx ? ' active' : '');
+    tab.dataset.idx = i;
+    tab.innerHTML = `${day.label}<span class="d">${day.date}</span>`;
+    tab.onclick = () => selectDay(i);
+    tabsEl.appendChild(tab);
+
+    const panel = document.createElement('div');
+    panel.className = 'day-panel' + (i===initialIdx ? ' active' : '');
+    panel.id = 'panel-'+i;
+
+    let blocksHtml = day.blocks.map((b, idx) => {
+      const key = blockKey(day.id, idx);
+      const isDone = !!checklist[key];
+      return `
+      <div class="block${isDone ? ' done' : ''}" data-key="${key}">
+        <div class="time">${b.time}</div>
+        <div class="block-top">
+          <input type="checkbox" ${isDone ? 'checked' : ''} data-key="${key}">
+          <div style="flex:1">
+            <div class="place">${b.place}</div>
+            <div class="desc">${b.desc}</div>
+            ${b.info ? `<div class="info-line">${b.info}</div>` : ''}
+            <div class="badges">
+              ${b.badges.map(bd => bd.c
+                ? `<span class="badge" style="background:var(--${bd.c})">${bd.t}</span>`
+                : `<span class="badge ${bd.cls}">${bd.t}</span>`
+              ).join('')}
+              ${b.map ? mapLinks(b.map) : ''}
+            </div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+
+    panel.innerHTML = `
+      <div class="day-head"><h2>${day.title}</h2><span>${day.date} jul</span></div>
+      <div class="day-progress" id="dayprog-${i}"></div>
+      <div class="day-budget" id="daybudget-${i}"></div>
+      <div class="day-weather" id="dayweather-${i}"></div>
+      <div class="note${day.noteAlert ? ' alert' : ''}">${day.note}</div>
+      ${day.planB ? `<details class="planb"><summary>Plan B (lluvia)</summary><div class="planb-body">${day.planB}</div></details>` : ''}
+      <div class="timeline">${blocksHtml}</div>
+    `;
+    panelsEl.appendChild(panel);
+  });
+
+  document.querySelectorAll('input[type="checkbox"][data-key]').forEach(cb => {
+    cb.addEventListener('change', onCheck);
+  });
+
+  updateProgress();
+  updateBudget();
+
+  const activeTab = tabsEl.children[initialIdx];
+  if(activeTab) activeTab.scrollIntoView({ inline: 'center', block: 'nearest' });
+}
+
+function onCheck(e){
+  const key = e.target.dataset.key;
+  checklist[key] = e.target.checked;
+  const block = document.querySelector(`.block[data-key="${key}"]`);
+  if(block) block.classList.toggle('done', e.target.checked);
+  saveChecklist();
+  updateProgress();
+}
+
+function updateProgress(){
+  let total = 0, done = 0;
+  DAYS.forEach((day, i) => {
+    let dTotal = day.blocks.length, dDone = 0;
+    day.blocks.forEach((b, idx) => { if(checklist[blockKey(day.id, idx)]) dDone++; });
+    total += dTotal; done += dDone;
+    const el = document.getElementById('dayprog-'+i);
+    if(el) el.innerHTML = `<b>${dDone}/${dTotal}</b> completado`;
+  });
+  document.getElementById('overallCount').textContent = `${done}/${total}`;
+  document.getElementById('overallFill').style.width = total ? `${(done/total*100).toFixed(0)}%` : '0%';
+}
+
+const KRW_PER_EUR = 1550; // aproximado — revisa el cambio real antes del viaje
+
+function formatKRW(n){ return '₩' + n.toLocaleString('es-ES'); }
+function formatEUR(n){ return (n / KRW_PER_EUR).toLocaleString('es-ES', { maximumFractionDigits: 0 }) + ' €'; }
+
+function updateBudget(){
+  let cumulative = 0;
+  DAYS.forEach((day, i) => {
+    const dayTotal = day.blocks.reduce((sum, b) => sum + (b.cost || 0), 0);
+    cumulative += dayTotal;
+    const el = document.getElementById('daybudget-' + i);
+    if(el){
+      el.innerHTML = `💰 <b>${formatKRW(dayTotal)}</b> (~${formatEUR(dayTotal)}) hoy · acumulado <b>${formatKRW(cumulative)}</b> (~${formatEUR(cumulative)})`;
+    }
+  });
+  const totalEl = document.getElementById('kpiBudgetTotal');
+  if(totalEl) totalEl.textContent = `${formatKRW(cumulative)} (~${formatEUR(cumulative)})`;
+}
+
+const SEOUL_LAT = 37.5665, SEOUL_LON = 126.9780;
+const WEATHER_HORIZON_DAYS = 16; // Open-Meteo da pronóstico diario fiable hasta ~16 días vista
+
+function tripDateStr(dayId){
+  const d = TRIP_FIRST_DAY + dayId;
+  return `${TRIP_YEAR}-${icsPad(TRIP_MONTH_INDEX + 1)}-${icsPad(d)}`;
+}
+
+async function updateWeather(){
+  const tripStart = new Date(TRIP_YEAR, TRIP_MONTH_INDEX, TRIP_FIRST_DAY);
+  const daysUntil = Math.ceil((tripStart - new Date()) / 86400000);
+  if(daysUntil > WEATHER_HORIZON_DAYS) return; // demasiado lejos: se mantiene la estimación estática
+
+  try{
+    const startDate = tripDateStr(0);
+    const endDate = tripDateStr(DAYS.length - 1);
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${SEOUL_LAT}&longitude=${SEOUL_LON}` +
+      `&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FSeoul` +
+      `&start_date=${startDate}&end_date=${endDate}`;
+    const res = await fetch(url);
+    if(!res.ok) return;
+    const data = await res.json();
+    const dates = data.daily && data.daily.time;
+    if(!dates || !dates.length) return;
+
+    const { temperature_2m_max: maxes, temperature_2m_min: mins, precipitation_probability_max: precs } = data.daily;
+
+    DAYS.forEach((day, i) => {
+      const idx = dates.indexOf(tripDateStr(day.id));
+      if(idx === -1) return;
+      const el = document.getElementById('dayweather-' + i);
+      if(el) el.textContent = `🌦 Previsión real (${day.date}): ${Math.round(mins[idx])}–${Math.round(maxes[idx])}°C · lluvia ${precs[idx]}%`;
+    });
+
+    const overallMin = Math.min(...mins), overallMax = Math.max(...maxes), overallPrec = Math.max(...precs);
+    const kpiEl = document.getElementById('kpiWeather');
+    if(kpiEl) kpiEl.innerHTML = `${Math.round(overallMin)}–${Math.round(overallMax)}°C · lluvia hasta ${overallPrec}% <span style="opacity:.6;font-weight:400;">(previsión real)</span>`;
+  }catch(e){
+    console.error('No se pudo obtener el clima real (¿sin conexión?):', e);
+  }
+}
+
+function selectDay(idx){
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active', i===idx));
+  document.querySelectorAll('.day-panel').forEach((p,i)=>p.classList.toggle('active', i===idx));
+}
+
+(async function init(){
+  document.getElementById('exportIcsBtn').addEventListener('click', downloadICS);
+  await loadChecklist();
+  renderAll();
+  updateWeather();
+})();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch((err) => console.error('SW registration failed:', err));
+  });
+}
+
+const ctx = document.getElementById('distChart').getContext('2d');
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Namsan/Myeongdong','Gyeongbokgung/Bukchon','Gwangjang Mkt','DDP','Seongsu-dong','Hongdae','Han River'],
+    datasets: [{
+      data: [15, 20, 20, 10, 25, 30, 25],
+      backgroundColor: ['#00a5de','#ef7c1c','#163a8a','#00a5de','#00a651','#cd7c2f','#8a8a8a'],
+      borderRadius: 5,
+      barThickness: 16
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: { legend: { display:false } },
+    scales: {
+      x: { ticks:{ color:'#b8ab98', font:{size:10} }, grid:{ color:'#4a3f36' }, title:{display:true,text:'minutos',color:'#b8ab98',font:{size:10}} },
+      y: { ticks:{ color:'#f1e9da', font:{size:11} }, grid:{ display:false } }
+    }
+  }
+});
+</script>
+</body>
+</html>
