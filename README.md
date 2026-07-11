@@ -47,11 +47,13 @@ seoul-dashboard/
 
 ## Backlog de funcionalidades
 - [x] Proteger la URL con un token simple en query string
-- [x] Selector automático de la pestaña "hoy" según la fecha del dispositivo
+- [x] Selector automático de la pestaña "hoy" según la fecha del dispositivo (si es antes del 24-07, abre directamente la pestaña "Antes de salir")
 - [x] Exportar el itinerario a Google Calendar / archivo .ics (botón "Exportar itinerario" → descarga `.ics` con las 24 fechas reales, zonas horarias correctas por tramo — España/Corea/China —, importable en Google Calendar/Apple Calendar/Outlook vía "Importar")
-- [x] Presupuesto estimado con acumulado — ahora en EUR únicamente (el viaje mezcla KRW y CNY), sumando solo importes con fuente clara en tu hoja (alojamiento por tramo, transporte, entradas ya fechadas). Las entradas de actividades sugeridas sin día asignado en China se muestran con precio de referencia pero no se suman al acumulado
+- [x] Presupuesto estimado con acumulado — en EUR únicamente (el viaje mezcla KRW y CNY), sumando solo importes con fuente clara en tu hoja (alojamiento por tramo, transporte, entradas ya fechadas). Las entradas de actividades sugeridas sin día asignado en China se muestran con precio de referencia pero no se suman al acumulado. KPI en la cabecera; ya no hay gráfico de reparto (se quitó para dejar sitio a los tips del día)
 - [x] Convertir a PWA instalable — manifest + service worker con cache del app shell; el checklist en sí sigue necesitando red. El token se guarda en `localStorage` al abrir el enlace la primera vez
 - [x] Clima real vía [Open-Meteo](https://open-meteo.com/) (sin API key), por tramo/ciudad, activo desde ~16 días antes de cada tramo del viaje
+- [x] Pestaña "Antes de salir" — checklist de preparativos (visado, Arrival Card, T-Money, apps de Corea, VPN/mapas offline para China), separada de los días del itinerario, con la sección "A tener en cuenta" de tu hoja
+- [x] Tips del día — 1-3 avisos prácticos por día (reservas con antelación, cierres, altitud, mareas de gente por festivales, etc.), en el hueco donde antes estaba el gráfico de presupuesto
 
 ## Hallazgos al contrastar con tu hoja de Drive "Verano '26"
 El dashboard original solo cubría Seúl (25–29 jul) como si fuera todo el viaje. Al contrastarlo con tu hoja se detectaron y corrigieron:
