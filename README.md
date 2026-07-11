@@ -2,8 +2,6 @@
 
 Dashboard del viaje de verano 2026 (24 jul – 16 ago): Seúl → Gyeongju → Busan → Jeonju → Seúl → Fuzhou → Kunming → Dali → Lijiang → Shangri-La → Chengdu. Pensado para consultarse desde el móvil durante el viaje.
 
-Contrastado con la hoja de Drive **"Verano '26"** (última revisión consultada: 07/07/2026) — ver "Hallazgos al contrastar con Drive" más abajo.
-
 ## Stack
 - Frontend: HTML/CSS/JS vanilla (sin build step), `index.html` en la raíz.
 - Backend: 1 función serverless (`api/checklist.js`) sobre Vercel Functions.
@@ -52,21 +50,12 @@ seoul-dashboard/
 - [x] Presupuesto estimado con acumulado — en EUR únicamente (el viaje mezcla KRW y CNY), sumando solo importes con fuente clara en tu hoja (alojamiento por tramo, transporte, entradas ya fechadas). Las entradas de actividades sugeridas sin día asignado en China se muestran con precio de referencia pero no se suman al acumulado. KPI en la cabecera; ya no hay gráfico de reparto (se quitó para dejar sitio a los tips del día)
 - [x] Convertir a PWA instalable — manifest + service worker con cache del app shell; el checklist en sí sigue necesitando red. El token se guarda en `localStorage` al abrir el enlace la primera vez
 - [x] Clima real vía [Open-Meteo](https://open-meteo.com/) (sin API key), por tramo/ciudad, activo desde ~16 días antes de cada tramo del viaje
-- [x] Pestaña "Antes de salir" — checklist de preparativos (visado, Arrival Card, T-Money, apps de Corea, VPN/mapas offline para China), separada de los días del itinerario, con la sección "A tener en cuenta" de tu hoja
-- [x] Tips del día — 1-3 avisos prácticos por día (reservas con antelación, cierres, altitud, mareas de gente por festivales, etc.), en el hueco donde antes estaba el gráfico de presupuesto
+- [x] Pestaña "Antes de salir" — checklist de preparativos (visado, Arrival Card, T-Money, apps de Corea, VPN/mapas offline para China), separada de los días del itinerario
+- [x] Tips del día — 1-3 avisos prácticos por día (reservas con antelación, cierres, altitud, mareas de gente por festivales, etc.)
+- [x] Recomendaciones de restaurantes por día ("🍜 Dónde comer") — sitios y platos típicos que suelen aparecer en blogs de viaje para la zona de ese día, al final del plan de cada día
 
-## Hallazgos al contrastar con tu hoja de Drive "Verano '26"
-El dashboard original solo cubría Seúl (25–29 jul) como si fuera todo el viaje. Al contrastarlo con tu hoja se detectaron y corrigieron:
-
-1. **El viaje no termina el 29 de julio.** Ese día es un tren Seúl→Gyeongju, no una salida. El dashboard ahora cubre las 24 fechas reales (24 jul–16 ago): Seúl → Gyeongju → Busan → Jeonju → Seúl → Fuzhou → Kunming → Dali → Lijiang → Shangri-La → Chengdu.
-2. **Changdeokgung estaba agendado en lunes**, día en que cierra. Se ha intercambiado con Gyeongbokgung (que cierra los martes): ahora Changdeokgung va el domingo 26-07 y Gyeongbokgung el lunes 27-07. Señalado con aviso en ambos días del dashboard.
-3. **Actividades de Gyeongju/Busan/Jeonju desplazadas de ciudad** en tu hoja (aparente error de una fila al pegar el itinerario, confirmado contra tu propia sección "Tickets y entradas"):
-   - Gyeonggijeon Shrine / Omokdae (reales de **Jeonju**) estaban en el día de Gyeongju → movidos al 03-08 (Jeonju).
-   - Bulguksa / Seokguram / Anapji (reales de **Gyeongju**) estaban en el primer día de Busan → movidos al 30-07 (Gyeongju).
-   - Haedong Yonggungsa / Haeundae Beach y Taejongdae / Geoje Island (reales de **Busan**) estaban repartidas en los días de Jeonju y de vuelta a Seúl → movidas a los días de Busan (01-08 y 02-08).
-4. **Presupuesto real de tu hoja**, no inventado: alojamiento por tramo, transporte (vuelos/trenes) y entradas con precio ya anotado, todo en EUR. Nota: la fila "Parcial" de alojamiento de tu hoja (546,5€) no cuadra con la suma de los importes por hotel que lista (1.093€ — exactamente el doble); se han usado los importes por hotel (más granulares) y merece la pena que revises esa celda en tu hoja.
-5. **Kunming, Dali, Lijiang y Shangri-La** no tienen actividades por día en tu hoja (columna en blanco), solo una lista de sitios en "Tickets y entradas" sin fecha asignada. El dashboard las muestra como sugerencias sin horario ni coste confirmado (marcadas explícitamente en cada día), en vez de inventar un reparto día a día.
-6. Falta el coste de alojamiento de la noche en Fuzhou (hotel cápsula del aeropuerto) en tu hoja — no se ha inventado un importe.
+## Notas de la fuente del itinerario
+El itinerario se construyó a partir de la hoja de Drive "Verano '26" del usuario, con algunas correcciones aplicadas sobre el orden/asignación original (días de cierre de palacios en Seúl, actividades de Gyeongju/Busan/Jeonju reasignadas a la ciudad correcta) y presupuesto tomado de los importes reales de la hoja (alojamiento por tramo, transporte, entradas con precio anotado). El dashboard ya no anota estas correcciones en la interfaz — se trata como el itinerario definitivo. La fila "Parcial" de alojamiento de la hoja original (546,5€) no cuadraba con la suma de los importes por hotel listados (1.093€, exactamente el doble); se usaron los importes por hotel.
 
 ## Notas de contexto (para retomar con Claude Code)
 - Hoteles por tramo: OYO Hostel Myeongdong 3 (Seúl, 4 noches) · Gyeongju BonghwangMansion (2 noches) · Gem Stay Seomyeon (Busan, 3 noches) · Jeonju Hanok village Deoksugung (1 noche) · OMG house/Hongdae (Seúl vuelta, 1 noche) · Hotel Capsula Airport (Fuzhou) · City Comfort Inn Express Hotel (Kunming) · Weishi · Air Qieman Xiangmo Homestay (Dali, 2 noches) · Mulanyu Tangsu Hotel (Lijiang, 2 noches) · GUI CHEN QI SHE Homestay (Shangri-La, 3 noches) · Flowers Pleasing Qing Ju Hotel (Chengdu).
