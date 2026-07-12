@@ -13,6 +13,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
   :root{
     --bg: #15121b;
@@ -146,6 +148,23 @@
   }
   .day-weather:empty{display:none;}
 
+  .day-map{
+    height:220px;border-radius:10px;overflow:hidden;
+    margin-bottom:12px;border:1px solid var(--hairline);
+    background:var(--card);
+  }
+  .day-map .leaflet-control-attribution{
+    background:rgba(21,18,27,.75)!important;color:var(--text-dim)!important;font-size:9px!important;
+  }
+  .day-map .leaflet-control-attribution a{color:var(--text-dim)!important;}
+  .day-map-marker{
+    width:24px;height:24px;border-radius:50%;
+    background:var(--accent);color:#2a0f08;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'JetBrains Mono',monospace;font-weight:700;font-size:11px;
+    border:2px solid var(--bg);box-shadow:0 2px 6px rgba(0,0,0,.5);
+  }
+
   .note{
     font-size:12.5px;color:var(--text-dim);
     background:var(--card-2);border-left:3px solid var(--accent);
@@ -265,6 +284,7 @@
   <footer>
     Presupuesto: coste aproximado por persona (alojamiento, transporte y entradas). Algunas actividades sin coste confirmado aparecen con precio de referencia en la descripción pero no se cuentan en el acumulado.<br>
     Restaurantes: recomendaciones habituales de blogs de viaje para cada zona — confirmad que siguen abiertos antes de ir.<br>
+    Mapas: ubicaciones aproximadas, orientativas para hacerse una idea del recorrido del día, no para navegación exacta.<br>
     Cambio orientativo usado: 1€ ≈ 1.550 KRW · 1€ ≈ 8,1 CNY (revísalos antes del viaje).<br>
     En China, Google Maps y otros servicios de Google pueden no funcionar sin VPN — lleva Baidu Maps u otra alternativa offline de respaldo.<br>
     El progreso marcado se sincroniza entre dispositivos que abran el mismo enlace con token.
@@ -307,8 +327,8 @@ const DAYS = [
     noteAlert:false, planB:"",
     tips:["Doble vuelo el mismo día: llevad lo importante en cabina por si el primer tramo se retrasa.", "El vuelo largo aterriza ya el 25 por la tarde — dormid en el avión si podéis."],
     blocks:[
-      {time:"15:30–16:20", place:"Vuelo BIO → BCN", desc:"Vuelo doméstico de enlace.", info:"82€", cost:82, badges:[{t:"✈️ Vuelo",cls:"time-est"}], map:"Aeropuerto de Bilbao", startISO:"2026-07-24T15:30", endISO:"2026-07-24T16:20", startTz:TZ.spain, endTz:TZ.spain},
-      {time:"21:00–16:25 (+1 día)", place:"Vuelo BCN → ICN", desc:"Vuelo intercontinental a Seúl-Incheon, llegada al día siguiente.", info:"662€", cost:662, badges:[{t:"✈️ Vuelo",cls:"time-est"}], map:"Aeropuerto de Barcelona El Prat", startISO:"2026-07-24T21:00", endISO:"2026-07-25T16:25", startTz:TZ.spain, endTz:TZ.korea}
+      {time:"15:30–16:20", place:"Vuelo BIO → BCN", desc:"Vuelo doméstico de enlace.", info:"82€", cost:82, badges:[{t:"✈️ Vuelo",cls:"time-est"}], map:"Aeropuerto de Bilbao", lat:43.3011, lon:-2.9106, startISO:"2026-07-24T15:30", endISO:"2026-07-24T16:20", startTz:TZ.spain, endTz:TZ.spain},
+      {time:"21:00–16:25 (+1 día)", place:"Vuelo BCN → ICN", desc:"Vuelo intercontinental a Seúl-Incheon, llegada al día siguiente.", info:"662€", cost:662, badges:[{t:"✈️ Vuelo",cls:"time-est"}], map:"Aeropuerto de Barcelona El Prat", lat:41.2971, lon:2.0785, startISO:"2026-07-24T21:00", endISO:"2026-07-25T16:25", startTz:TZ.spain, endTz:TZ.korea}
     ]
   },
   {
@@ -319,8 +339,8 @@ const DAYS = [
     tips:["Tened la Arrival Card ya rellena antes de aterrizar.", "Sacad efectivo o cambiad algo — el mercado nocturno de Myeongdong se paga sobre todo en efectivo.", "WATERBOMB (24–26 jul) puede llenar de gente y ruido la zona estos días."],
     food:["Myeongdong Kyoja (명동교자), institución de kalguksu y mandu a un paso del hotel — clásico de todas las guías de Seúl."],
     blocks:[
-      {time:"16:25–18:00", place:"Llegada ICN + traslado a Myeongdong", desc:"AREX «Express Train» desde el aeropuerto. Check-in en OYO Hostel Myeongdong 3.", info:"AREX ~7€", cost:7, badges:[{t:"AREX",cls:"time-est"}], map:"AREX Incheon Airport Seoul"},
-      {time:"Tarde/noche", place:"Paseo por Myeongdong o Cheonggyecheon", desc:"Sin planes grandes tras el vuelo largo: opción a pie del hotel.", info:"Entrada libre", cost:0, badges:[{t:"a pie",cls:"time-est"}], map:"Myeongdong Seoul"}
+      {time:"16:25–18:00", place:"Llegada ICN + traslado a Myeongdong", desc:"AREX «Express Train» desde el aeropuerto. Check-in en OYO Hostel Myeongdong 3.", info:"AREX ~7€", cost:7, badges:[{t:"AREX",cls:"time-est"}], map:"AREX Incheon Airport Seoul", lat:37.5636, lon:126.9834},
+      {time:"Tarde/noche", place:"Paseo por Myeongdong o Cheonggyecheon", desc:"Sin planes grandes tras el vuelo largo: opción a pie del hotel.", info:"Entrada libre", cost:0, badges:[{t:"a pie",cls:"time-est"}], map:"Myeongdong Seoul", lat:37.5636, lon:126.9834}
     ]
   },
   {
@@ -331,9 +351,9 @@ const DAYS = [
     tips:["Reservad el Jardín Secreto de Changdeokgung con antelación: aforo limitado y pases con horario fijo.", "En Gwangjang Market no dejéis la cena para después de las 22:00, empiezan a cerrar puestos."],
     food:["Onion Ikseon (어니언 익선), cafetería-panadería en un hanok reformado de Ikseon-dong.", "En Gwangjang Market, el bindaetteok (tortita de judía mung) y el mayak gimbap son los platos que más se repiten en las guías."],
     blocks:[
-      {time:"Mañana", place:"Changdeokgung + Secret Garden", desc:"Jardín Secreto con aforo limitado, reserva aparte.", info:"Palacio ~3.000 KRW (~2€) · Jardín Secreto reserva obligatoria", cost:2, badges:[{t:"LÍNEA 3",c:"line3"}], map:"Changdeokgung Palace Seoul"},
-      {time:"Mediodía", place:"Ikseon-dong", desc:"Comida y cafés entre hanoks reconvertidos.", info:"Entrada libre", cost:0, badges:[{t:"a pie",cls:"time-est"}], map:"Ikseondong Seoul"},
-      {time:"Noche", place:"Gwangjang Market", desc:"Cena de mercado.", info:"Entrada libre · pagas por plato", cost:0, badges:[{t:"LÍNEA 1",c:"line1"}], map:"Gwangjang Market Seoul"}
+      {time:"Mañana", place:"Changdeokgung + Secret Garden", desc:"Empezad por el salón del trono Injeongjeon y Seonjeongjeon. El Jardín Secreto (Huwon) se visita con guía en turnos de horario fijo — el pabellón junto al estanque Buyongji es de los rincones más fotografiados de Seúl.", info:"Palacio ~3.000 KRW (~2€) · Jardín Secreto reserva obligatoria", cost:2, badges:[{t:"LÍNEA 3",c:"line3"}], map:"Changdeokgung Palace Seoul", lat:37.5794, lon:126.991},
+      {time:"Mediodía", place:"Ikseon-dong", desc:"Comida y cafés entre hanoks reconvertidos — perderos por los callejones estrechos es parte del plan, muchos locales quedan escondidos sin cartel visible desde la calle principal.", info:"Entrada libre", cost:0, badges:[{t:"a pie",cls:"time-est"}], map:"Ikseondong Seoul", lat:37.573, lon:126.991},
+      {time:"Noche", place:"Gwangjang Market", desc:"Cena de mercado.", info:"Entrada libre · pagas por plato", cost:0, badges:[{t:"LÍNEA 1",c:"line1"}], map:"Gwangjang Market Seoul", lat:37.5701, lon:126.9996}
     ]
   },
   {
@@ -344,9 +364,9 @@ const DAYS = [
     tips:["Cambio de guardia en Gyeongbokgung a las 10:00 — llegad un poco antes para sitio.", "Entrada gratis al palacio si vais con hanbok alquilado."],
     food:["Tosokchon Samgyetang (토속촌 삼계탕), muy cerca del palacio — el samgyetang (sopa de pollo con ginseng) más recomendado de Seúl."],
     blocks:[
-      {time:"Mañana", place:"Gyeongbokgung Palace", desc:"Cambio de guardia a las 10:00. Entrada gratis si vais de hanbok.", info:"3.000 KRW adulto (~2€) · cierra martes", cost:2, badges:[{t:"LÍNEA 3",c:"line3"}], map:"Gyeongbokgung Palace Seoul"},
-      {time:"Mediodía", place:"Bukchon Hanok Village", desc:"A pie desde el palacio.", info:"Entrada libre", cost:0, badges:[{t:"a pie",cls:"time-est"}], map:"Bukchon Hanok Village Seoul"},
-      {time:"Tarde", place:"Insadong", desc:"Calle de té y anticuarios.", info:"Entrada libre", cost:0, badges:[{t:"a pie",cls:"time-est"}], map:"Insadong Seoul"}
+      {time:"Mañana", place:"Gyeongbokgung Palace", desc:"Cambio de guardia a las 10:00 y 14:00 en la puerta principal (Gwanghwamun). Dentro, no os perdáis el salón del trono Geunjeongjeon y el pabellón sobre el agua Gyeonghoeru. El National Folk Museum y el National Palace Museum están dentro del propio recinto, así que da para una mañana entera sin salir del palacio. Entrada gratis si vais de hanbok.", info:"3.000 KRW adulto (~2€) · cierra martes", cost:2, badges:[{t:"LÍNEA 3",c:"line3"}], map:"Gyeongbokgung Palace Seoul", lat:37.5796, lon:126.977},
+      {time:"Mediodía", place:"Bukchon Hanok Village", desc:"A pie desde el palacio. La calle Bukchon-ro 11-gil es el mirador clásico sobre los tejados — llegad temprano, se llena de gente a media mañana.", info:"Entrada libre", cost:0, badges:[{t:"a pie",cls:"time-est"}], map:"Bukchon Hanok Village Seoul", lat:37.5824, lon:126.9831},
+      {time:"Tarde", place:"Insadong", desc:"Calle de té, anticuarios y galerías de arte. Ssamziegil es un pequeño centro comercial en espiral con tiendas de artesanía, buena parada si hace calor.", info:"Entrada libre", cost:0, badges:[{t:"a pie",cls:"time-est"}], map:"Insadong Seoul", lat:37.574, lon:126.985}
     ]
   },
   {
@@ -356,8 +376,8 @@ const DAYS = [
     tips:["El cable car de N Seoul Tower puede cerrar con viento fuerte — llevad plan de subir a pie o en bus.", "Id antes del atardecer para pillar la luz dorada desde el mirador."],
     food:["Vatos Urban Tacos, fusión coreano-mexicana muy popular en Itaewon."],
     blocks:[
-      {time:"Tarde", place:"Hongdae / Itaewon", desc:"Energía joven (Hongdae) o ambiente internacional (Itaewon), según el cuerpo.", info:"Entrada libre", cost:0, badges:[{t:"LÍNEA 2/6",c:"line2"}], map:"Hongdae Seoul"},
-      {time:"Atardecer", place:"N Seoul Tower (Namsan)", desc:"Subida en cable car o a pie.", info:"26.000 KRW (~17€)", cost:17, badges:[{t:"📷 luz dorada",cls:"golden"}], map:"N Seoul Tower Namsan"}
+      {time:"Tarde", place:"Hongdae / Itaewon", desc:"Hongdae: arte urbano, tiendas de moda y música en directo los fines de semana cerca de la universidad. Itaewon: ambiente más internacional, buena opción si os apetece salir un rato de lo coreano.", info:"Entrada libre", cost:0, badges:[{t:"LÍNEA 2/6",c:"line2"}], map:"Hongdae Seoul", lat:37.5563, lon:126.9236},
+      {time:"Atardecer", place:"N Seoul Tower (Namsan)", desc:"Subida en cable car o a pie por el parque Namsan. El mirador del observatorio da una vista de 360° de la ciudad, y las vallas con candados de amor en la base de la torre son un clásico para fotos.", info:"26.000 KRW (~17€)", cost:17, badges:[{t:"📷 luz dorada",cls:"golden"}], map:"N Seoul Tower Namsan", lat:37.5512, lon:126.9882}
     ]
   },
   {
@@ -366,8 +386,8 @@ const DAYS = [
     note:"", noteAlert:false, planB:"",
     tips:["Reservad el KTX con antelación por la app KORAIL Talk, los trayectos populares se llenan."],
     blocks:[
-      {time:"10:00–12:00", place:"Tren Seúl → Gyeongju", desc:"KTX.", info:"55€", cost:55, badges:[{t:"KTX",cls:"time-est"}], map:"Gyeongju Station", startISO:"2026-07-29T10:00", endISO:"2026-07-29T12:00", startTz:TZ.korea, endTz:TZ.korea},
-      {time:"Tarde", place:"Check-in + paseo por Hanok Village (Gyeongju)", desc:"", info:"Alojamiento 2 noches: 137€", cost:137, badges:[{t:"a pie",cls:"time-est"}], map:"Gyeongju Hanok Village"}
+      {time:"10:00–12:00", place:"Tren Seúl → Gyeongju", desc:"KTX.", info:"55€", cost:55, badges:[{t:"KTX",cls:"time-est"}], map:"Gyeongju Station", lat:35.7942, lon:129.2477, startISO:"2026-07-29T10:00", endISO:"2026-07-29T12:00", startTz:TZ.korea, endTz:TZ.korea},
+      {time:"Tarde", place:"Check-in + paseo por Hanok Village (Gyeongju)", desc:"", info:"Alojamiento 2 noches: 137€", cost:137, badges:[{t:"a pie",cls:"time-est"}], map:"Gyeongju Hanok Village", lat:35.8331, lon:129.2129}
     ]
   },
   {
@@ -378,9 +398,9 @@ const DAYS = [
     tips:["Seokguram es cómodo de recorrer en bici — considerad alquilar una.", "Anapji/Wolji Pond es mejor de noche, iluminado — dejadlo para el final del día."],
     food:["Hwangnam-ppang (황남빵), el famoso pan relleno de judía roja de Gyeongju — parada clásica en cualquier blog de viaje sobre la ciudad."],
     blocks:[
-      {time:"Mañana", place:"Bulguksa Temple", desc:"", info:"Gratis", cost:0, badges:[{t:"Día completo",cls:"time-est"}], map:"Bulguksa Temple Gyeongju"},
-      {time:"Mediodía", place:"Seokguram Grotto", desc:"Cómoda de recorrer en bici.", info:"6.000 KRW (~4€)", cost:4, badges:[{t:"bici",cls:"time-est"}], map:"Seokguram Grotto"},
-      {time:"Tarde/noche", place:"Donggung Palace y Wolji Pond (Anapji)", desc:"Espectacular iluminado de noche.", info:"3.000 KRW (~2€)", cost:2, badges:[{t:"📷 de noche",cls:"golden"}], map:"Donggung Palace Wolji Pond"}
+      {time:"Mañana", place:"Bulguksa Temple", desc:"Patrimonio de la Unesco, famoso por sus escaleras y puentes de piedra (Cheongun-gyo) y sus dos pagodas, Dabotap y Seokgatap.", info:"Gratis", cost:0, badges:[{t:"Día completo",cls:"time-est"}], map:"Bulguksa Temple Gyeongju", lat:35.7898, lon:129.332},
+      {time:"Mediodía", place:"Seokguram Grotto", desc:"Cómoda de recorrer en bici. La gruta alberga una estatua de Buda de granito mirando al mar — muy popular al amanecer, aunque para eso hay que llegar antes de la apertura general.", info:"6.000 KRW (~4€)", cost:4, badges:[{t:"bici",cls:"time-est"}], map:"Seokguram Grotto", lat:35.7947, lon:129.3495},
+      {time:"Tarde/noche", place:"Donggung Palace y Wolji Pond (Anapji)", desc:"Espectacular iluminado de noche — el reflejo de los pabellones en el estanque es la postal más repetida de Gyeongju.", info:"3.000 KRW (~2€)", cost:2, badges:[{t:"📷 de noche",cls:"golden"}], map:"Donggung Palace Wolji Pond", lat:35.8347, lon:129.2246}
     ]
   },
   {
@@ -389,8 +409,8 @@ const DAYS = [
     note:"", noteAlert:false, planB:"",
     tips:["Guardad bien el billete del KTX (35 min): trayecto corto pero con pocas frecuencias al día."],
     blocks:[
-      {time:"14:00–15:00", place:"Tren Gyeongju → Busan", desc:"KTX (35').", info:"18€", cost:18, badges:[{t:"KTX",cls:"time-est"}], map:"Busan Station", startISO:"2026-07-31T14:00", endISO:"2026-07-31T15:00", startTz:TZ.korea, endTz:TZ.korea},
-      {time:"Tarde", place:"Check-in + paseo por el centro histórico", desc:"", info:"Alojamiento 3 noches: 247€", cost:247, map:"Busan"}
+      {time:"14:00–15:00", place:"Tren Gyeongju → Busan", desc:"KTX (35').", info:"18€", cost:18, badges:[{t:"KTX",cls:"time-est"}], map:"Busan Station", lat:35.1156, lon:129.0413, startISO:"2026-07-31T14:00", endISO:"2026-07-31T15:00", startTz:TZ.korea, endTz:TZ.korea},
+      {time:"Tarde", place:"Check-in + paseo por el centro histórico", desc:"", info:"Alojamiento 3 noches: 247€", cost:247, map:"Busan", lat:35.1579, lon:129.0594}
     ]
   },
   {
@@ -401,8 +421,8 @@ const DAYS = [
     tips:["El amanecer en Haedong Yonggungsa merece la pena — tocaría madrugar."],
     food:["Milmyeon (fideos fríos), especialidad de Busan — lo encontraréis en cualquier restaurante de la zona de Haeundae."],
     blocks:[
-      {time:"Mañana", place:"Haedong Yonggungsa Temple", desc:"Templo junto al mar; ideal para comer marisco cerca.", info:"Gratis, excepto transporte", cost:0, map:"Haedong Yonggungsa Temple Busan"},
-      {time:"Tarde", place:"Haeundae Beach", desc:"El amanecer aquí merece la pena (a valorar madrugar otro día).", info:"Gratis, excepto transporte", cost:0, badges:[{t:"📷 amanecer",cls:"golden"}], map:"Haeundae Beach Busan"}
+      {time:"Mañana", place:"Haedong Yonggungsa Temple", desc:"Templo junto al mar; ideal para comer marisco cerca.", info:"Gratis, excepto transporte", cost:0, map:"Haedong Yonggungsa Temple Busan", lat:35.1884, lon:129.2229},
+      {time:"Tarde", place:"Haeundae Beach", desc:"El amanecer aquí merece la pena (a valorar madrugar otro día).", info:"Gratis, excepto transporte", cost:0, badges:[{t:"📷 amanecer",cls:"golden"}], map:"Haeundae Beach Busan", lat:35.1587, lon:129.1604}
     ]
   },
   {
@@ -413,9 +433,9 @@ const DAYS = [
     tips:["Gamcheon es una ciudad-mural muy extensa — calzado cómodo, hay muchas cuestas.", "En Jagalchi Market probad el pescado fresco, es el mercado de pescado más famoso de Corea."],
     food:["Ssiat Hotteok (씨앗호떡), en Nampo-dong — el hotteok relleno de semillas más famoso de Busan."],
     blocks:[
-      {time:"Mañana", place:"Gamcheon Culture Village", desc:"Ciudad muy extensa.", info:"Gratis, excepto transporte", cost:0, map:"Gamcheon Culture Village Busan"},
-      {time:"Tarde", place:"Jagalchi Market", desc:"", info:"Gratis, excepto transporte", cost:0, map:"Jagalchi Market Busan"},
-      {time:"Si sobra tiempo (opcional)", place:"Taejongdae cliffs o excursión a Geoje Island", desc:"Excursión típica desde Busan si os queda tiempo.", info:"Sin coste estimado", cost:0, map:"Taejongdae Busan"}
+      {time:"Mañana", place:"Gamcheon Culture Village", desc:"Ciudad muy extensa, conocida como el «Machu Picchu de Busan» por sus casas de colores en la ladera. Hay un recorrido señalizado con puntos de fotos y pequeñas galerías/tiendas de artesanos por las escaleras.", info:"Gratis, excepto transporte", cost:0, map:"Gamcheon Culture Village Busan", lat:35.0975, lon:129.0106},
+      {time:"Tarde", place:"Jagalchi Market", desc:"El mercado de pescado más grande de Corea. En la planta baja se compra el pescado y arriba te lo preparan al momento — lo clásico es comer hoe (pescado crudo) con vistas al puerto.", info:"Gratis, excepto transporte", cost:0, map:"Jagalchi Market Busan", lat:35.0968, lon:129.0306},
+      {time:"Si sobra tiempo (opcional)", place:"Taejongdae cliffs o excursión a Geoje Island", desc:"Excursión típica desde Busan si os queda tiempo.", info:"Sin coste estimado", cost:0, map:"Taejongdae Busan", lat:35.0511, lon:129.0866}
     ]
   },
   {
@@ -426,10 +446,10 @@ const DAYS = [
     tips:["Alquilar un hanbok en Jeonju Hanok Village merece la pena para las fotos."],
     food:["Hankookjip (한국집), uno de los bibimbap más veteranos y recomendados de Jeonju.", "PNB Baguette, la panadería más famosa de la ciudad — su choco pie es parada obligada."],
     blocks:[
-      {time:"08:00–12:00", place:"Tren Busan → Jeonju", desc:"KTX + transbordo.", info:"58€", cost:58, badges:[{t:"KTX",cls:"time-est"}], map:"Jeonju Station", startISO:"2026-08-03T08:00", endISO:"2026-08-03T12:00", startTz:TZ.korea, endTz:TZ.korea},
-      {time:"Tarde", place:"Jeonju Hanok Village", desc:"Cuna del bibimbap. Merece la pena alquilar un hanbok.", info:"Alojamiento 1 noche: 37€", cost:37, map:"Jeonju Hanok Village"},
-      {time:"Tarde", place:"Gyeonggijeon Shrine + Omokdae", desc:"", info:"Gyeonggijeon 3.000 KRW (~2€)", cost:2, map:"Gyeonggijeon Shrine Jeonju"},
-      {time:"Cuando puedas", place:"Mercado Nambu", desc:"", info:"Sin coste anotado", cost:0, map:"Nambu Market Jeonju"}
+      {time:"08:00–12:00", place:"Tren Busan → Jeonju", desc:"KTX + transbordo.", info:"58€", cost:58, badges:[{t:"KTX",cls:"time-est"}], map:"Jeonju Station", lat:35.8447, lon:127.1626, startISO:"2026-08-03T08:00", endISO:"2026-08-03T12:00", startTz:TZ.korea, endTz:TZ.korea},
+      {time:"Tarde", place:"Jeonju Hanok Village", desc:"Cuna del bibimbap y el mayor barrio de hanoks habitados de Corea. Merece la pena alquilar un hanbok — con él, la entrada a varios edificios históricos es gratuita.", info:"Alojamiento 1 noche: 37€", cost:37, map:"Jeonju Hanok Village", lat:35.8151, lon:127.1535},
+      {time:"Tarde", place:"Gyeonggijeon Shrine + Omokdae", desc:"Santuario donde se guarda el retrato oficial del rey Taejo, fundador de la dinastía Joseon — uno de los rincones más tranquilos del Hanok Village, con una arboleda de bambú detrás del edificio principal.", info:"Gyeonggijeon 3.000 KRW (~2€)", cost:2, map:"Gyeonggijeon Shrine Jeonju", lat:35.8149, lon:127.1481},
+      {time:"Cuando puedas", place:"Mercado Nambu", desc:"", info:"Sin coste anotado", cost:0, map:"Nambu Market Jeonju", lat:35.8121, lon:127.1483}
     ]
   },
   {
@@ -440,8 +460,8 @@ const DAYS = [
     tips:["Medio día sin plan cerrado — buen momento para decidir sobre la marcha según el cansancio acumulado."],
     food:["Aprovechad para probar la zona de restaurantes de Hongdae, a un paso del hotel."],
     blocks:[
-      {time:"11:30–13:30", place:"Tren Jeonju → Seúl", desc:"", info:"39€", cost:39, badges:[{t:"KTX",cls:"time-est"}], map:"Seoul Station", startISO:"2026-08-04T11:30", endISO:"2026-08-04T13:30", startTz:TZ.korea, endTz:TZ.korea},
-      {time:"Tarde", place:"Check-in OMG House (Hongdae)", desc:"Medio día libre en Seúl — plan por definir.", info:"Alojamiento 1 noche: 66€", cost:66, map:"Hongdae Seoul"}
+      {time:"11:30–13:30", place:"Tren Jeonju → Seúl", desc:"", info:"39€", cost:39, badges:[{t:"KTX",cls:"time-est"}], map:"Seoul Station", lat:37.5547, lon:126.9707, startISO:"2026-08-04T11:30", endISO:"2026-08-04T13:30", startTz:TZ.korea, endTz:TZ.korea},
+      {time:"Tarde", place:"Check-in OMG House (Hongdae)", desc:"Medio día libre en Seúl — plan por definir.", info:"Alojamiento 1 noche: 66€", cost:66, map:"Hongdae Seoul", lat:37.5563, lon:126.9236}
     ]
   },
   {
@@ -450,8 +470,8 @@ const DAYS = [
     note:"", noteAlert:false, planB:"",
     tips:["Noche corta en el hotel cápsula del aeropuerto antes del vuelo de conexión — dormid lo que podáis."],
     blocks:[
-      {time:"20:35–22:25", place:"Vuelo ICN → Fuzhou (FOC)", desc:"Primer tramo de la conexión hasta Kunming (coste combinado con el vuelo del día siguiente).", info:"194€ combinado ICN–Kunming", cost:194, badges:[{t:"✈️ Vuelo",cls:"time-est"}], map:"Fuzhou Changle International Airport", startISO:"2026-08-05T20:35", endISO:"2026-08-05T22:25", startTz:TZ.korea, endTz:TZ.china},
-      {time:"Noche", place:"Hotel cápsula del aeropuerto", desc:"Noche corta antes del vuelo de conexión.", info:"", cost:0, map:"Fuzhou Changle International Airport"}
+      {time:"20:35–22:25", place:"Vuelo ICN → Fuzhou (FOC)", desc:"Primer tramo de la conexión hasta Kunming (coste combinado con el vuelo del día siguiente).", info:"194€ combinado ICN–Kunming", cost:194, badges:[{t:"✈️ Vuelo",cls:"time-est"}], map:"Fuzhou Changle International Airport", lat:25.935, lon:119.6631, startISO:"2026-08-05T20:35", endISO:"2026-08-05T22:25", startTz:TZ.korea, endTz:TZ.china},
+      {time:"Noche", place:"Hotel cápsula del aeropuerto", desc:"Noche corta antes del vuelo de conexión.", info:"", cost:0, map:"Fuzhou Changle International Airport", lat:25.935, lon:119.6631}
     ]
   },
   {
@@ -462,8 +482,8 @@ const DAYS = [
     tips:["Stone Forest necesita medio día completo, valorad si os da tiempo.", "Antes de entrar en China, comprobad que la VPN esté activa (Google Maps y similares no funcionan sin ella)."],
     food:["Guoqiao Mixian (过桥米线, fideos \"cruzando el puente\"), el plato insignia de la cocina yunnanesa."],
     blocks:[
-      {time:"07:45–10:55", place:"Vuelo Fuzhou → Kunming", desc:"Segundo tramo de la conexión iniciada el día anterior.", info:"Incluido en el coste del vuelo anterior", cost:0, badges:[{t:"✈️ Vuelo",cls:"time-est"}], map:"Kunming Changshui International Airport", startISO:"2026-08-06T07:45", endISO:"2026-08-06T10:55", startTz:TZ.china, endTz:TZ.china},
-      {time:"Sin horario fijo", place:"Kunming — sugerencias sin día fijado: Stone Forest, Green Lake Park, Yuantong Temple", desc:"Clima muy agradable todo el año.", info:"Alojamiento 1 noche: 42€ · Stone Forest ~130 CNY (~16€, no incluido en el acumulado)", cost:42, map:"Kunming"}
+      {time:"07:45–10:55", place:"Vuelo Fuzhou → Kunming", desc:"Segundo tramo de la conexión iniciada el día anterior.", info:"Incluido en el coste del vuelo anterior", cost:0, badges:[{t:"✈️ Vuelo",cls:"time-est"}], map:"Kunming Changshui International Airport", lat:25.1019, lon:102.9292, startISO:"2026-08-06T07:45", endISO:"2026-08-06T10:55", startTz:TZ.china, endTz:TZ.china},
+      {time:"Sin horario fijo", place:"Kunming — sugerencias sin día fijado: Stone Forest, Green Lake Park, Yuantong Temple", desc:"Clima muy agradable todo el año — apodada «la ciudad de la eterna primavera». Green Lake Park es un buen paseo tranquilo si no da tiempo a más.", info:"Alojamiento 1 noche: 42€ · Stone Forest ~130 CNY (~16€, no incluido en el acumulado)", cost:42, map:"Kunming", lat:25.048, lon:102.708}
     ]
   },
   {
@@ -473,8 +493,8 @@ const DAYS = [
     tips:["Mucho sol por la altitud en Dali — protección solar."],
     food:["Xizhou baba (喜洲粑粑), la torta salada/dulce típica de Dali — se vende en puestos por la ciudad antigua."],
     blocks:[
-      {time:"11:00–13:16", place:"Tren Kunming → Dali", desc:"", info:"21€", cost:21, badges:[{t:"Tren AV",cls:"time-est"}], map:"Dali Railway Station", startISO:"2026-08-07T11:00", endISO:"2026-08-07T13:16", startTz:TZ.china, endTz:TZ.china},
-      {time:"Tarde", place:"Ciudad Antigua de Dali", desc:"Mucho sol por la altitud.", info:"Alojamiento 2 noches: 83€", cost:83, map:"Dali Ancient City"}
+      {time:"11:00–13:16", place:"Tren Kunming → Dali", desc:"", info:"21€", cost:21, badges:[{t:"Tren AV",cls:"time-est"}], map:"Dali Railway Station", lat:25.6931, lon:100.1653, startISO:"2026-08-07T11:00", endISO:"2026-08-07T13:16", startTz:TZ.china, endTz:TZ.china},
+      {time:"Tarde", place:"Ciudad Antigua de Dali", desc:"Mucho sol por la altitud. La ciudad amurallada conserva sus 4 puertas originales y calles empedradas, con vistas al lago Erhai y a la cordillera Cangshan de fondo.", info:"Alojamiento 2 noches: 83€", cost:83, map:"Dali Ancient City", lat:25.6942, lon:100.1611}
     ]
   },
   {
@@ -485,8 +505,8 @@ const DAYS = [
     tips:["Alquilar bici o scooter es la forma más cómoda de recorrer el lago Erhai."],
     food:["Rushan (乳扇), el snack de queso frito típico de la etnia Bai, muy recomendado en Dali."],
     blocks:[
-      {time:"Sin horario fijo", place:"Erhai Lake", desc:"Alquila bici o scooter para recorrerlo.", info:"Bici/moto 30–80 CNY (~4–10€, no incluido en el acumulado)", cost:0, map:"Erhai Lake"},
-      {time:"Sin horario fijo", place:"Three Pagodas", desc:"", info:"75 CNY (~9€, no incluido en el acumulado)", cost:0, map:"Three Pagodas Dali"}
+      {time:"Sin horario fijo", place:"Erhai Lake", desc:"Alquila bici o scooter para recorrerlo — el lago es enorme, mejor elegir un tramo concreto (el lado este suele tener menos tráfico) que intentar rodearlo entero.", info:"Bici/moto 30–80 CNY (~4–10€, no incluido en el acumulado)", cost:0, map:"Erhai Lake", lat:25.75, lon:100.2},
+      {time:"Sin horario fijo", place:"Three Pagodas", desc:"", info:"75 CNY (~9€, no incluido en el acumulado)", cost:0, map:"Three Pagodas Dali", lat:25.7031, lon:100.1706}
     ]
   },
   {
@@ -496,8 +516,8 @@ const DAYS = [
     tips:["Reservad los teleféricos de Lijiang con antelación — se agotan."],
     food:["Naxi baba (纳西粑粑), la torta plana típica de la etnia Naxi — puestos por el casco antiguo de Lijiang."],
     blocks:[
-      {time:"10:00–12:00", place:"Tren Dali → Lijiang", desc:"", info:"12€", cost:12, badges:[{t:"Tren AV",cls:"time-est"}], map:"Lijiang Railway Station", startISO:"2026-08-09T10:00", endISO:"2026-08-09T12:00", startTz:TZ.china, endTz:TZ.china},
-      {time:"Tarde", place:"Old Town of Lijiang", desc:"Reservar teleféricos con antelación.", info:"Tasa 50 CNY (~6€, no incluido en el acumulado) · alojamiento 2 noches: 67€", cost:67, map:"Old Town of Lijiang"}
+      {time:"10:00–12:00", place:"Tren Dali → Lijiang", desc:"", info:"12€", cost:12, badges:[{t:"Tren AV",cls:"time-est"}], map:"Lijiang Railway Station", lat:26.8103, lon:100.2214, startISO:"2026-08-09T10:00", endISO:"2026-08-09T12:00", startTz:TZ.china, endTz:TZ.china},
+      {time:"Tarde", place:"Old Town of Lijiang", desc:"Patrimonio de la Unesco: canales de agua corriente por todas las calles empedradas y arquitectura Naxi tradicional. De noche se ilumina y cambia bastante de ambiente respecto al día. Reservar teleféricos con antelación.", info:"Tasa 50 CNY (~6€, no incluido en el acumulado) · alojamiento 2 noches: 67€", cost:67, map:"Old Town of Lijiang", lat:26.8721, lon:100.224}
     ]
   },
   {
@@ -507,8 +527,8 @@ const DAYS = [
     noteAlert:true, planB:"",
     tips:["Llevad abrigo para el Jade Dragon Snow Mountain incluso en verano."],
     blocks:[
-      {time:"Sin horario fijo", place:"Blue Moon Valley", desc:"2.000–4.500 m de altitud.", info:"Sin coste estimado", cost:0, map:"Blue Moon Valley Lijiang"},
-      {time:"Sin horario fijo", place:"Jade Dragon Snow Mountain", desc:"Llevar abrigo incluso en verano.", info:"Jade + teleféricos 200–350 CNY (~25–43€, no incluido en el acumulado)", cost:0, map:"Jade Dragon Snow Mountain"}
+      {time:"Sin horario fijo", place:"Blue Moon Valley", desc:"Aguas turquesas escalonadas a los pies del Jade Dragon Snow Mountain — 2.000–4.500 m de altitud.", info:"Sin coste estimado", cost:0, map:"Blue Moon Valley Lijiang", lat:27.1, lon:100.18},
+      {time:"Sin horario fijo", place:"Jade Dragon Snow Mountain", desc:"El teleférico sube hasta cerca de los 4.500 m — llevad abrigo incluso en verano e id con calma los primeros minutos arriba por la altitud.", info:"Jade + teleféricos 200–350 CNY (~25–43€, no incluido en el acumulado)", cost:0, map:"Jade Dragon Snow Mountain", lat:27.1019, lon:100.1817}
     ]
   },
   {
@@ -517,8 +537,8 @@ const DAYS = [
     note:"", noteAlert:false, planB:"",
     tips:["Empezáis a subir de altitud de camino a Shangri-La — hidratación desde ya."],
     blocks:[
-      {time:"17:52–19:41", place:"Traslado Lijiang → Shangri-La", desc:"Con parada en la Garganta del Salto del Tigre (Tiger Leaping Gorge).", info:"10€", cost:10, badges:[{t:"Tren AV",cls:"time-est"}], map:"Tiger Leaping Gorge", startISO:"2026-08-11T17:52", endISO:"2026-08-11T19:41", startTz:TZ.china, endTz:TZ.china},
-      {time:"Noche", place:"Check-in en Shangri-La", desc:"", info:"Alojamiento 3 noches: 162€", cost:162, map:"Shangri-La Yunnan"}
+      {time:"17:52–19:41", place:"Traslado Lijiang → Shangri-La", desc:"Con parada en la Garganta del Salto del Tigre (Tiger Leaping Gorge), uno de los cañones fluviales más profundos del mundo.", info:"10€", cost:10, badges:[{t:"Tren AV",cls:"time-est"}], map:"Tiger Leaping Gorge", lat:27.1969, lon:100.0847, startISO:"2026-08-11T17:52", endISO:"2026-08-11T19:41", startTz:TZ.china, endTz:TZ.china},
+      {time:"Noche", place:"Check-in en Shangri-La", desc:"", info:"Alojamiento 3 noches: 162€", cost:162, map:"Shangri-La Yunnan", lat:27.8264, lon:99.7031}
     ]
   },
   {
@@ -528,7 +548,7 @@ const DAYS = [
     noteAlert:true, planB:"",
     tips:["Revisad si esta parada duplica la del traslado del día anterior antes de reservar nada extra."],
     blocks:[
-      {time:"Día completo", place:"Tiger Leaping Gorge", desc:"", info:"Sin coste anotado", cost:0, map:"Tiger Leaping Gorge"}
+      {time:"Día completo", place:"Tiger Leaping Gorge", desc:"", info:"Sin coste anotado", cost:0, map:"Tiger Leaping Gorge", lat:27.1969, lon:100.0847}
     ]
   },
   {
@@ -539,9 +559,9 @@ const DAYS = [
     tips:["Shangri-La está a más de 3.200 m — evitad esfuerzos intensos los 2 primeros días.", "Mucha radiación UV en Potatso — protector solar y agua."],
     food:["Té de mantequilla (酥油茶) y platos de yak — la cocina tibetana típica de Shangri-La."],
     blocks:[
-      {time:"Sin horario fijo", place:"Songzanlin Monastery", desc:"Más de 3.200 m de altitud.", info:"90 CNY (~11€, no incluido en el acumulado)", cost:0, map:"Songzanlin Monastery"},
-      {time:"Sin horario fijo", place:"Potatso National Park", desc:"Mucha radiación UV: protector solar y agua.", info:"138 CNY (~17€, no incluido en el acumulado)", cost:0, map:"Potatso National Park"},
-      {time:"Sin horario fijo", place:"Napa Lake", desc:"", info:"Sin coste anotado", cost:0, map:"Napa Lake Shangri-La"}
+      {time:"Sin horario fijo", place:"Songzanlin Monastery", desc:"El monasterio tibetano más grande de Yunnan, conocido como el «Pequeño Potala» por su parecido con el palacio de Lhasa. Más de 3.200 m de altitud.", info:"90 CNY (~11€, no incluido en el acumulado)", cost:0, map:"Songzanlin Monastery", lat:27.8663, lon:99.6967},
+      {time:"Sin horario fijo", place:"Potatso National Park", desc:"Lagos alpinos y praderas recorridos en autobús lanzadera dentro del parque — mucha radiación UV: protector solar y agua.", info:"138 CNY (~17€, no incluido en el acumulado)", cost:0, map:"Potatso National Park", lat:27.9075, lon:99.8225},
+      {time:"Sin horario fijo", place:"Napa Lake", desc:"", info:"Sin coste anotado", cost:0, map:"Napa Lake Shangri-La", lat:27.8306, lon:99.6167}
     ]
   },
   {
@@ -550,7 +570,7 @@ const DAYS = [
     note:"", noteAlert:false, planB:"",
     tips:["Vuelo de madrugada (22:45–00:10) — descansad antes si podéis."],
     blocks:[
-      {time:"22:45–00:10 (+1 día)", place:"Vuelo Shangri-La (DIG) → Chengdu (TFU)", desc:"", info:"125€", cost:125, badges:[{t:"✈️ Vuelo",cls:"time-est"}], map:"Chengdu Tianfu International Airport", startISO:"2026-08-14T22:45", endISO:"2026-08-15T00:10", startTz:TZ.china, endTz:TZ.china}
+      {time:"22:45–00:10 (+1 día)", place:"Vuelo Shangri-La (DIG) → Chengdu (TFU)", desc:"", info:"125€", cost:125, badges:[{t:"✈️ Vuelo",cls:"time-est"}], map:"Chengdu Tianfu International Airport", lat:30.3222, lon:104.4419, startISO:"2026-08-14T22:45", endISO:"2026-08-15T00:10", startTz:TZ.china, endTz:TZ.china}
     ]
   },
   {
@@ -561,7 +581,7 @@ const DAYS = [
     tips:["El centro de pandas gigantes suele necesitar reserva y es mejor ir a primera hora (están más activos)."],
     food:["Chen Mapo Doufu (陈麻婆豆腐), el restaurante original del mapo tofu.", "Jinli o Kuanzhai Alley para picar en los puestos de calle, y una sesión de hotpot (火锅) para despedir el viaje por Chengdu."],
     blocks:[
-      {time:"Día completo", place:"Chengdu", desc:"Día libre en Chengdu.", info:"Alojamiento 1 noche: 28€", cost:28, map:"Chengdu"}
+      {time:"Día completo", place:"Chengdu", desc:"Día libre en Chengdu — además del centro de pandas y el Gran Buda de Leshan, el barrio de Kuanzhai Alley y el templo Wenshu son buenas opciones si preferís quedaros en la ciudad.", info:"Alojamiento 1 noche: 28€", cost:28, map:"Chengdu", lat:30.6598, lon:104.0633}
     ]
   },
   {
@@ -570,8 +590,8 @@ const DAYS = [
     note:"", noteAlert:false, planB:"",
     tips:["Doble vuelo de vuelta — comprobad el tiempo de conexión en Madrid antes de facturar equipaje."],
     blocks:[
-      {time:"01:30–07:40", place:"Vuelo TFU → MAD", desc:"", info:"565€", cost:565, badges:[{t:"✈️ Vuelo",cls:"time-est"}], map:"Aeropuerto Adolfo Suárez Madrid-Barajas", startISO:"2026-08-16T01:30", endISO:"2026-08-16T07:40", startTz:TZ.china, endTz:TZ.spain},
-      {time:"10:55–11:55", place:"Vuelo MAD → BIO", desc:"Llegada a casa.", info:"45€", cost:45, badges:[{t:"✈️ Vuelo",cls:"time-est"}], map:"Aeropuerto de Bilbao", startISO:"2026-08-16T10:55", endISO:"2026-08-16T11:55", startTz:TZ.spain, endTz:TZ.spain}
+      {time:"01:30–07:40", place:"Vuelo TFU → MAD", desc:"", info:"565€", cost:565, badges:[{t:"✈️ Vuelo",cls:"time-est"}], map:"Aeropuerto Adolfo Suárez Madrid-Barajas", lat:40.4983, lon:-3.5676, startISO:"2026-08-16T01:30", endISO:"2026-08-16T07:40", startTz:TZ.china, endTz:TZ.spain},
+      {time:"10:55–11:55", place:"Vuelo MAD → BIO", desc:"Llegada a casa.", info:"45€", cost:45, badges:[{t:"✈️ Vuelo",cls:"time-est"}], map:"Aeropuerto de Bilbao", lat:43.3011, lon:-2.9106, startISO:"2026-08-16T10:55", endISO:"2026-08-16T11:55", startTz:TZ.spain, endTz:TZ.spain}
     ]
   }
 ];
@@ -817,6 +837,7 @@ function renderAll(){
       <div class="day-progress" id="dayprog-${i}"></div>
       <div class="day-budget" id="daybudget-${i}"></div>
       <div class="day-weather" id="dayweather-${i}"></div>
+      <div class="day-map" id="map-${i}"></div>
       ${day.note ? `<div class="note${day.noteAlert ? ' alert' : ''}">${day.note}</div>` : ''}
       ${day.planB ? `<details class="planb"><summary>Plan B (lluvia)</summary><div class="planb-body">${day.planB}</div></details>` : ''}
       ${day.tips && day.tips.length ? `<div class="tips"><div class="tips-title">💡 Tips del día</div><ul>${day.tips.map(t => `<li>${t}</li>`).join('')}</ul></div>` : ''}
@@ -833,8 +854,53 @@ function renderAll(){
   updateProgress();
   updateBudget();
 
+  if(initialPos > 0) initDayMap(initialPos - 1);
+
   const activeTab = tabsEl.children[initialPos];
   if(activeTab) activeTab.scrollIntoView({ inline: 'center', block: 'nearest' });
+}
+
+const dayMapInstances = {};
+
+function initDayMap(dayIdx){
+  try{
+    const container = document.getElementById('map-' + dayIdx);
+    if(!container) return;
+
+    if(dayMapInstances[dayIdx]){
+      requestAnimationFrame(() => dayMapInstances[dayIdx].invalidateSize());
+      return;
+    }
+
+    const day = DAYS[dayIdx];
+    const points = day.blocks.filter(b => b.lat != null && b.lon != null);
+    if(!points.length){ container.style.display = 'none'; return; }
+
+    const map = L.map(container, { scrollWheelZoom: false });
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+      subdomains: 'abcd',
+      maxZoom: 19
+    }).addTo(map);
+
+    const latlngs = points.map(p => [p.lat, p.lon]);
+    points.forEach((p, idx) => {
+      L.marker([p.lat, p.lon], {
+        icon: L.divIcon({ className: 'day-map-marker', html: String(idx + 1), iconSize: [24, 24], iconAnchor: [12, 12] })
+      }).bindPopup(p.place).addTo(map);
+    });
+
+    if(latlngs.length > 1){
+      L.polyline(latlngs, { color: '#ff6b4a', weight: 2, opacity: 0.7, dashArray: '6,6' }).addTo(map);
+      map.fitBounds(L.latLngBounds(latlngs), { padding: [24, 24] });
+    } else {
+      map.setView(latlngs[0], 14);
+    }
+
+    dayMapInstances[dayIdx] = map;
+  }catch(e){
+    console.error(`No se pudo cargar el mapa del día ${dayIdx}:`, e);
+  }
 }
 
 function onCheck(e){
@@ -921,6 +987,7 @@ async function updateWeather(){
 function selectDay(idx){
   document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active', i===idx));
   document.querySelectorAll('.day-panel').forEach((p,i)=>p.classList.toggle('active', i===idx));
+  if(idx > 0) initDayMap(idx - 1);
 }
 
 (async function init(){
