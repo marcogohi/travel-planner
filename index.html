@@ -398,33 +398,37 @@ const DAYS = [
   },
   {
     id:5, dateISO:"2026-07-29", dow:"Mié", leg:"gyeongju", hotel:"Gyeongju BonghwangMansion",
-    title:"Tren a Gyeongju + Hanok Village",
+    title:"Tren a Gyeongju + Hwangnidan-gil y tumbas Silla",
     note:"", noteAlert:false, planB:"",
-    tips:["Reservad el KTX con antelación por la app KORAIL Talk, los trayectos populares se llenan."],
+    tips:["Reservad el KTX con antelación por la app KORAIL Talk, los trayectos populares se llenan.", "Singyeongju Station queda a las afueras — coged un taxi al hotel (15-20 min). Hace mucho calor y humedad a finales de julio (~31°C), llevad agua."],
     blocks:[
       {time:"10:00–12:00", place:"Tren Seúl → Gyeongju", desc:"KTX directo de poco más de 2 horas. Gyeongju fue la capital del reino de Silla durante casi mil años, y hoy se la conoce como «el museo sin paredes» porque hay tumbas reales, templos y ruinas repartidos por toda la ciudad, no confinados a un recinto cerrado.", info:"55€", cost:55, badges:[{t:"KTX",cls:"time-est"}], map:"Gyeongju Station", lat:35.7942, lon:129.2477, startISO:"2026-07-29T10:00", endISO:"2026-07-29T12:00", startTz:TZ.korea, endTz:TZ.korea},
-      {time:"Tarde", place:"Check-in + paseo por Hanok Village (Gyeongju)", desc:"Un barrio de casas tradicionales bajitas junto al centro histórico, mucho más tranquilo y menos turístico que Bukchon en Seúl. Buena forma de aclimataros al ritmo pausado de la ciudad antes de los templos de mañana.", info:"Alojamiento 2 noches: 137€", cost:137, badges:[{t:"a pie",cls:"time-est"}], map:"Gyeongju Hanok Village", lat:35.8331, lon:129.2129}
-    ]
-  },
-  {
-    id:6, dateISO:"2026-07-30", dow:"Jue", leg:"gyeongju", hotel:"Gyeongju BonghwangMansion",
-    title:"Bulguksa + Seokguram + Anapji (Wolji Pond)",
-    note:"",
-    noteAlert:false, planB:"",
-    tips:["Seokguram es cómodo de recorrer en bici — considerad alquilar una.", "Anapji/Wolji Pond es mejor de noche, iluminado — dejadlo para el final del día."],
-    food:["Hwangnam-ppang (황남빵), el famoso pan relleno de judía roja de Gyeongju — parada clásica en cualquier blog de viaje sobre la ciudad."],
-    blocks:[
-      {time:"09:00–11:00", place:"Bulguksa Temple", desc:"Patrimonio de la Unesco desde 1995 y uno de los templos budistas más importantes de Corea, construido originalmente en el siglo VIII bajo la dinastía Silla. Famoso por sus escaleras y puentes de piedra (Cheongun-gyo, «puente de las nubes azules»), que representan simbólicamente el paso del mundo terrenal al de Buda, y por sus dos pagodas de piedra, Dabotap (más ornamentada) y Seokgatap (más austera), que aparecen incluso en monedas coreanas.", info:"Gratis", cost:0, badges:[{t:"Día completo",cls:"time-est"}], map:"Bulguksa Temple Gyeongju", lat:35.7898, lon:129.332},
-      {time:"11:30–13:00", place:"Seokguram Grotto", desc:"A unos 15 minutos en bus/coche desde Bulguksa, cuesta arriba (el trayecto tiene bastante desnivel, no es un paseo cómodo a pie o en bici). La gruta artificial alberga una estatua de Buda de granito de más de 3 metros mirando hacia el mar, orientada deliberadamente para ver salir el sol — es muy popular al amanecer, aunque para eso hay que llegar antes de la apertura general al público.", info:"Gratis desde 2023 (antes cobraba entrada)", cost:0, map:"Seokguram Grotto", lat:35.7947, lon:129.3495},
+      {time:"12:30–14:00", place:"Check-in + comida en Hwangnidan-gil", desc:"El hotel está junto al Hanok Village de Gyeongju, a un paso de Hwangnidan-gil, la calle más fotografiada de la ciudad: una mezcla de casas hanok y edificios retro de los años 60-70 reconvertidos en cafeterías, tiendas de artesanía y heladerías, con las tumbas reales de Daereungwon asomando literalmente al otro lado del muro. Buena zona para comer algo y aclimataros al ritmo pausado de Gyeongju antes de los templos de mañana — muchas tiendas alquilan hanbok por horas, y pasear con uno puesto junto a los túmulos al atardecer es una de las estampas clásicas de la ciudad. Entre semana por la mañana está más tranquilo; fines de semana y tardes de primavera/otoño se llena bastante.", info:"Alojamiento 2 noches: 137€", cost:137, badges:[{t:"a pie",cls:"time-est"}], map:"Gyeongju Hanok Village", lat:35.8331, lon:129.2129},
+      {time:"14:30–16:00", place:"Daereungwon Tomb Complex", desc:"Parque amurallado con una veintena de túmulos funerarios de reyes y nobles del reino de Silla (siglos V-VI), parte del conjunto de Gyeongju declarado Patrimonio de la Unesco. El más conocido es Cheonmachong («tumba del caballo celestial»), la única tumba con interior visitable, donde se expone una réplica de la corona de oro hallada dentro y la pintura sobre corteza de abedul que le da nombre. Vale la pena entrar a ver el corte transversal que muestra cómo se construían estos montículos por dentro, y luego pasear tranquilamente entre el resto de túmulos — el contraste de la hierba verde con los tejados de Hwangnidan-gil al fondo es de las postales más repetidas de la ciudad.", info:"3.000 KRW (~2€)", cost:2, map:"Daereungwon Tomb Complex Gyeongju", lat:35.8355, lon:129.2107},
+      {time:"16:30–18:00", place:"Cheomseongdae Observatory", desc:"Construido en el siglo VII bajo el reinado de la reina Seondeok, está considerado uno de los observatorios astronómicos más antiguos conservados de Asia oriental. La torre, en forma de botella, está hecha con 362 piedras repartidas en 27 hileras — un número que se corresponde aproximadamente con los días del calendario lunar — y tiene una pequeña ventana a media altura que se usaba para orientarse con el sol y las estrellas. Es pequeño y se ve en pocos minutos, pero el trasfondo numerológico detrás de su diseño lo hace más interesante de lo que parece a simple vista; de noche queda iluminado y es otro buen punto para fotos.", info:"Gratis", cost:0, map:"Cheomseongdae Observatory Gyeongju", lat:35.8356, lon:129.2194},
       {time:"19:00–20:30", place:"Donggung Palace y Wolji Pond (Anapji)", desc:"Antiguo palacio secundario y jardín de la corte de Silla, reconstruido a partir de las ruinas descubiertas junto al estanque. Espectacular iluminado de noche — el reflejo de los pabellones sobre el agua en calma es la postal más repetida de Gyeongju, y es de los pocos sitios de la ciudad pensados específicamente para visitarse después del atardecer.", info:"3.000 KRW (~2€)", cost:2, badges:[{t:"📷 de noche",cls:"golden"}], map:"Donggung Palace Wolji Pond", lat:35.8347, lon:129.2246}
     ]
   },
   {
-    id:7, dateISO:"2026-07-31", dow:"Vie", leg:"busan", hotel:"Gem Stay Seomyeon",
-    title:"Tren a Busan",
-    note:"", noteAlert:false, planB:"",
-    tips:["Guardad bien el billete del KTX (35 min): trayecto corto pero con pocas frecuencias al día."],
+    id:6, dateISO:"2026-07-30", dow:"Jue", leg:"gyeongju", hotel:"Gyeongju BonghwangMansion",
+    title:"Bulguksa + Seokguram (templos de montaña)",
+    note:"",
+    noteAlert:false, planB:"",
+    tips:["Para Bulguksa y Seokguram no hace falta bici: bus 10 u 11 desde la terminal hasta Bulguksa, y desde allí bus 12 (sale a :40 de cada hora) hasta Seokguram — la subida final tiene bastante desnivel, mejor no ir a pie ni en bici."],
+    food:["Hwangnam-ppang (황남빵), el famoso pan relleno de judía roja de Gyeongju — parada clásica en cualquier blog de viaje sobre la ciudad."],
     blocks:[
+      {time:"09:00–11:00", place:"Bulguksa Temple", desc:"Patrimonio de la Unesco desde 1995 y uno de los templos budistas más importantes de Corea, construido originalmente en el siglo VIII bajo la dinastía Silla. Famoso por sus escaleras y puentes de piedra (Cheongun-gyo, «puente de las nubes azules»), que representan simbólicamente el paso del mundo terrenal al de Buda, y por sus dos pagodas de piedra, Dabotap (más ornamentada) y Seokgatap (más austera), que aparecen incluso en monedas coreanas.", info:"Gratis", cost:0, badges:[{t:"Día completo",cls:"time-est"}], map:"Bulguksa Temple Gyeongju", lat:35.7898, lon:129.332},
+      {time:"11:30–13:00", place:"Seokguram Grotto", desc:"A unos 15 minutos en bus/coche desde Bulguksa, cuesta arriba (el trayecto tiene bastante desnivel, no es un paseo cómodo a pie o en bici). La gruta artificial alberga una estatua de Buda de granito de más de 3 metros mirando hacia el mar, orientada deliberadamente para ver salir el sol — es muy popular al amanecer, aunque para eso hay que llegar antes de la apertura general al público.", info:"Gratis desde 2023 (antes cobraba entrada)", cost:0, map:"Seokguram Grotto", lat:35.7947, lon:129.3495},
+      {time:"Tarde", place:"Tarde libre / cafés tradicionales", desc:"Tarde sin planes cerrados — buen momento para volver relajados a Hwangnidan-gil (o explorar alguna calle paralela menos transitada) y parar en alguna de sus cafeterías con vistas a los túmulos de Daereungwon, algunas literalmente pegadas al muro del parque. Gyeongju se disfruta mejor a este ritmo pausado, sin intentar encajar más templos en el mismo día.", info:"Sin coste estimado", cost:0, map:"Gyeongju Hanok Village", lat:35.8331, lon:129.2129}
+    ]
+  },
+  {
+    id:7, dateISO:"2026-07-31", dow:"Vie", leg:"busan", hotel:"Gem Stay Seomyeon",
+    title:"Museo Nacional de Gyeongju + tren a Busan",
+    note:"", noteAlert:false, planB:"",
+    tips:["Guardad bien el billete del KTX (35 min): trayecto corto pero con pocas frecuencias al día.", "Salid hacia Singyeongju Station sobre las 13:15h para llegar con margen al tren de las 14:00h."],
+    blocks:[
+      {time:"Mañana", place:"Gyeongju National Museum (o último paseo por Hwangnidan-gil)", desc:"El museo con la mejor colección de piezas de la época Silla del país: coronas de oro, los hallazgos de Cheonmachong y la Campana de Bronce del Rey Seongdeok (también llamada «campana Emile»), fundida en el año 771 y con 3,75 metros de altura — la campana tradicional coreana más grande conservada, envuelta además en una leyenda sobre su característico sonido. Buena forma de aprovechar la mañana libre antes del tren a Busan si os apetece profundizar en el contexto histórico de lo visto los días anteriores; si preferís algo más ligero, un último paseo por Hwangnidan-gil es la alternativa.", info:"Gratis", cost:0, map:"Gyeongju National Museum", lat:35.8319, lon:129.227},
       {time:"14:00–15:00", place:"Tren Gyeongju → Busan", desc:"KTX (35'), uno de los trayectos más cortos de todo el viaje. Busan es la segunda ciudad de Corea y su gran puerto — un cambio de ritmo notable tras el ambiente tranquilo de Gyeongju, con playas urbanas, montañas que caen directas al mar y el mercado de pescado más grande del país.", info:"18€", cost:18, badges:[{t:"KTX",cls:"time-est"}], map:"Busan Station", lat:35.1156, lon:129.0413, startISO:"2026-07-31T14:00", endISO:"2026-07-31T15:00", startTz:TZ.korea, endTz:TZ.korea},
       {time:"Tarde", place:"Check-in + paseo por el centro histórico", desc:"Seomyeon, donde está el hotel, es el centro comercial y de ocio nocturno de Busan — buena base para moverse en metro al resto de la ciudad. Un primer paseo sin prisa por la zona sirve para ubicarse antes de los días más cargados que vienen.", info:"Alojamiento 3 noches: 247€", cost:247, map:"Busan", lat:35.1579, lon:129.0594}
     ]
