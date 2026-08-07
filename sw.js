@@ -1,4 +1,4 @@
-const CACHE_NAME = 'verano-2026-v12';
+const CACHE_NAME = 'verano-2026-v13';
 const APP_SHELL = [
   '/',
   '/index.html',
