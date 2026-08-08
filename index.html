@@ -528,8 +528,7 @@ const DAYS = [
     tips:["Mucho sol por la altitud en Dali — protección solar."],
     blocks:[
       {time:"11:00–13:16", place:"Tren Kunming → Dali", desc:"Tren de alta velocidad de poco más de 2 horas que cruza parte del altiplano yunnanés. Dali fue capital del reino de Nanzhao y luego de Dali durante varios siglos antes de la conquista mongola — hoy es sobre todo conocida por la etnia Bai, su arquitectura de piedra blanca característica y el lago Erhai.", info:"21€", cost:21, badges:[{t:"Tren AV",cls:"time-est"}], map:"Dali Railway Station", lat:25.6931, lon:100.1653, startISO:"2026-08-07T11:00", endISO:"2026-08-07T13:16", startTz:TZ.china, endTz:TZ.china},
-      {time:"Tarde", place:"Ciudad Antigua de Dali", desc:"Mucho sol por la altitud. La ciudad amurallada conserva sus 4 puertas originales y calles empedradas, con vistas al lago Erhai y a la cordillera Cangshan de fondo.", info:"Alojamiento 2 noches: 83€", cost:83, map:"Dali Ancient City", lat:25.6942, lon:100.1611},
-      {time:"Tarde-noche", place:"Three Pagodas (San Ta) + templo Chongsheng", desc:"El símbolo más fotografiado de Dali: tres pagodas de más de mil años de antigüedad frente al lago y la cordillera, la principal de 69 metros flanqueada por otras dos más pequeñas. Se ven perfectamente gratis desde fuera del recinto vallado, a solo 2 km de la Ciudad Antigua (Didi o bici); entrar permite acercarse, visitar el templo Chongsheng y recorrer la zona escénica de detrás (unos 7 km si hacéis todo el circuito interior).", info:"121 CNY (~15€) entrada combinada con Chongsheng y la zona escénica, no incluido en el acumulado", cost:0, map:"Three Pagodas Dali", lat:25.7031, lon:100.1706}
+      {time:"Tarde", place:"Ciudad Antigua de Dali", desc:"Mucho sol por la altitud. La ciudad amurallada conserva sus 4 puertas originales y calles empedradas, con vistas al lago Erhai y a la cordillera Cangshan de fondo.", info:"Alojamiento 2 noches: 83€", cost:83, map:"Dali Ancient City", lat:25.6942, lon:100.1611}
     ]
   },
   {
@@ -546,13 +545,14 @@ const DAYS = [
   },
   {
     id:16, dateISO:"2026-08-09", dow:"Dom", leg:"lijiang", hotel:"Mulanyu Tangsu Hotel",
-    title:"Tren a Lijiang",
+    title:"Three Pagodas + tren a Lijiang",
     note:"", noteAlert:false, planB:"",
-    tips:["Reservad los teleféricos de Lijiang con antelación — se agotan."],
+    tips:["Reservad los teleféricos de Lijiang con antelación — se agotan.", "La estación de tren de Dali está en Xiaguan, a unos 19 km y 35-45 min en taxi/Didi desde la Ciudad Antigua — salid con margen, sobre todo tras la visita a Three Pagodas."],
     food:["Naxi baba (纳西粑粑), la torta plana típica de la etnia Naxi — puestos por el casco antiguo de Lijiang."],
     blocks:[
-      {time:"10:00–12:00", place:"Tren Dali → Lijiang", desc:"Tren de alta velocidad de unas 2 horas. Lijiang está a mayor altitud que Dali (unos 2.400 m) y es la puerta de entrada a las montañas nevadas de la región — el casco antiguo, de origen Naxi, es Patrimonio de la Unesco desde 1997.", info:"12€", cost:12, badges:[{t:"Tren AV",cls:"time-est"}], map:"Lijiang Railway Station", lat:26.8103, lon:100.2214, startISO:"2026-08-09T10:00", endISO:"2026-08-09T12:00", startTz:TZ.china, endTz:TZ.china},
-      {time:"Tarde", place:"Old Town of Lijiang", desc:"Patrimonio de la Unesco: canales de agua corriente por todas las calles empedradas y arquitectura Naxi tradicional. De noche se ilumina y cambia bastante de ambiente respecto al día. Reservar teleféricos con antelación.", info:"Tasa 50 CNY (~6€, no incluido en el acumulado) · alojamiento 2 noches: 67€", cost:67, map:"Old Town of Lijiang", lat:26.8721, lon:100.224}
+      {time:"08:00–09:00", place:"Three Pagodas (San Ta) + templo Chongsheng", desc:"El símbolo más fotografiado de Dali: tres pagodas de más de mil años de antigüedad frente al lago y la cordillera, la principal de 69 metros flanqueada por otras dos más pequeñas. Entrando pronto (abre sobre las 7:00-7:30) evitáis el calor y los grupos; se ven perfectamente gratis desde fuera del recinto vallado, a solo 2 km de la Ciudad Antigua, pero entrar permite acercarse, visitar el templo Chongsheng y recorrer la zona escénica de detrás.", info:"121 CNY (~15€) entrada combinada con Chongsheng y la zona escénica, no incluido en el acumulado", cost:0, map:"Three Pagodas Dali", lat:25.7031, lon:100.1706},
+      {time:"12:00–14:00", place:"Tren Dali → Lijiang", desc:"Tren de alta velocidad de unas 2 horas, retrasado desde la salida original de las 10:00 para poder ver Three Pagodas antes — hay salidas cada 1,5-2h (~8 al día), así que no supone mucho lío cambiarlo. Lijiang está a mayor altitud que Dali (unos 2.400 m) y es la puerta de entrada a las montañas nevadas de la región — el casco antiguo, de origen Naxi, es Patrimonio de la Unesco desde 1997.", info:"12€", cost:12, badges:[{t:"Tren AV",cls:"time-est"}], map:"Lijiang Railway Station", lat:26.8103, lon:100.2214, startISO:"2026-08-09T12:00", endISO:"2026-08-09T14:00", startTz:TZ.china, endTz:TZ.china},
+      {time:"Tarde-noche", place:"Old Town of Lijiang", desc:"Patrimonio de la Unesco: canales de agua corriente por todas las calles empedradas y arquitectura Naxi tradicional. De noche se ilumina y cambia bastante de ambiente respecto al día — con la llegada retrasada a las 14:00, os da tiempo de sobra igualmente hasta la noche. Reservar teleféricos con antelación.", info:"Tasa 50 CNY (~6€, no incluido en el acumulado) · alojamiento 2 noches: 67€", cost:67, map:"Old Town of Lijiang", lat:26.8721, lon:100.224}
     ]
   },
   {
