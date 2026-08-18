@@ -42,6 +42,9 @@
     -webkit-font-smoothing:antialiased;
   }
   .wrap{max-width:720px;margin:0 auto;padding:18px 16px 40px;}
+  @media (min-width:900px){
+    .wrap{max-width:820px;}
+  }
 
   header.top{
     display:flex;flex-direction:column;gap:4px;
@@ -99,6 +102,12 @@
     -ms-overflow-style:none;scrollbar-width:none;
   }
   .tabs::-webkit-scrollbar{display:none;}
+  @media (hover:hover) and (pointer:fine){
+    .tabs{scrollbar-width:thin;}
+    .tabs::-webkit-scrollbar{display:block;height:6px;}
+    .tabs::-webkit-scrollbar-thumb{background:var(--hairline);border-radius:3px;}
+    .tabs::-webkit-scrollbar-track{background:transparent;}
+  }
   .tab{
     flex:0 0 auto;
     font-family:'JetBrains Mono',monospace;
@@ -825,6 +834,14 @@ function renderAll(){
   const panelsEl = document.getElementById('panels');
   tabsEl.innerHTML = "";
   panelsEl.innerHTML = "";
+  if(!tabsEl.dataset.wheelBound){
+    tabsEl.dataset.wheelBound = '1';
+    tabsEl.addEventListener('wheel', (e) => {
+      if(e.deltaY === 0) return;
+      tabsEl.scrollLeft += e.deltaY;
+      e.preventDefault();
+    }, { passive: false });
+  }
   const initialPos = getInitialPosition();
 
   renderPreTripTab(tabsEl, panelsEl, initialPos === 0);
@@ -939,7 +956,8 @@ function initDayMap(dayIdx){
     const points = day.blocks.filter(b => b.lat != null && b.lon != null);
     if(!points.length){ container.style.display = 'none'; return; }
 
-    const map = L.map(container, { scrollWheelZoom: false });
+    const isDesktopPointer = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+    const map = L.map(container, { scrollWheelZoom: isDesktopPointer });
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
       subdomains: 'abcd',
